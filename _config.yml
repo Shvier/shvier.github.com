@@ -1,31 +1,64 @@
-# Site settings
+#
+###################################
+# Site wide configuration
+####################################
+#
+title:       "Renyuan's blog"
+description: 'A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France.'
+url:         # the base hostname & protocol for your site
 
-title: Gallery In Shadow # Title of your site
-email: Shvier@sina.com # Your contant email
-
-description: > # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-baseurl: "shvier.github.com" # the subpath of your site, e.g. /blog/
-url: "http://shvier.github.io" # the base hostname & protocol for your site
-
-# Social links.
-# Replace the word 'example' with your username if you want to include the icon in the left sidebar
-# Delete the word 'example' if you don't want to include the icon in the left sidebar
-
-twitter_username:     SherlockVier  # Replace this with your Twitter username
-github_username:      Shvier  # Replace this with your GitHub username
-weibo_username:    sherlockv  # Replace this with your LinkedIn username
-google_plus_username: 102772374180629771368  # Replace this with your Google+ username
-facebook_username:    SherlockVier  # Replace this with your Facebook username
-
-# Build settings
+#
+###################################
+# Jekyll configuration
+####################################
+#
+timezone:          Europe/Paris
 markdown:          kramdown
 highlighter:       pygments
+excerpt_separator: <!--more-->
+permalink:         /articles/:year-:month/:title
+
 kramdown:
   auto_ids:       true
   footnote_nr:    1
   entity_output:  as_char
   toc_levels:     1..6
   enable_coderay: false
+
+#
+###################################
+# Site Owner configuration
+####################################
+#
+owner:
+  name: Renyuan
+  avatar: avatar.jpg
+  job: "PHP & Ruby Developer"
+  bio: "A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France."
+  email: zourenyuan@gmail.com
+  disqus-shortname: renyuanzblog
+  twitter: alittlered3 #username
+  facebook: #username
+  google:
+    plus: #username
+    analytics: UA-62251910-1
+    verify:
+    ad-client:
+    ad-slot:
+  bing-verify:
+  github: renyuanz #username
+  stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
+  linkedin: #username
+  xing: #username
+  instagram: #username
+  lastfm: #username
+  tumblr: #username
+  pinterest: #username
+  foursquare: #username
+  steam: #username
+  dribbble: #username
+  youtube: #username
+  soundcloud: #username
+  weibo: #username
+  flickr: #username
+  codepen: #username
