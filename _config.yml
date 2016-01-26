@@ -14,12 +14,11 @@ url: "http://shvier.github.io" # the base hostname & protocol for your site
 # Replace the word 'example' with your username if you want to include the icon in the left sidebar
 # Delete the word 'example' if you don't want to include the icon in the left sidebar
 
-twitter_username:     example  # Replace this with your Twitter username
+twitter_username:     SherlockVier  # Replace this with your Twitter username
 github_username:      Shvier  # Replace this with your GitHub username
-linkedin_username:    example  # Replace this with your LinkedIn username
-google_plus_username: example  # Replace this with your Google+ username
-facebook_username:    example  # Replace this with your Facebook username
-dribbble_username:    example  # Replace this with your Dribbble username
+weibo_username:    sherlockv  # Replace this with your LinkedIn username
+google_plus_username: 102772374180629771368  # Replace this with your Google+ username
+facebook_username:    SherlockVier  # Replace this with your Facebook username
 
 # Build settings
 markdown: kramdown
