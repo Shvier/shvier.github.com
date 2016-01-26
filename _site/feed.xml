@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Renyuan&#39;s blog</title>
-    <description>A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France.</description>
+    <title>Gallery In Shadow</title>
+    <description>Hello and welcome.</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 26 Jan 2016 12:47:45 +0100</pubDate>
-    <lastBuildDate>Tue, 26 Jan 2016 12:47:45 +0100</lastBuildDate>
+    <pubDate>Tue, 26 Jan 2016 19:56:06 +0800</pubDate>
+    <lastBuildDate>Tue, 26 Jan 2016 19:56:06 +0800</lastBuildDate>
     <generator>Jekyll v3.0.2</generator>
     
       <item>
@@ -46,7 +46,7 @@
 &lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/13542213/git-see-a-list-of-comments-of-my-last-n-commits#answer-13542327&quot;&gt;You can see the original answer here.&lt;/a&gt;&lt;/p&gt;
 
 </description>
-        <pubDate>Wed, 09 Dec 2015 00:00:00 +0100</pubDate>
+        <pubDate>Wed, 09 Dec 2015 00:00:00 +0800</pubDate>
         <link>/articles/2015-12/tips-for-Git-users</link>
         <guid isPermaLink="true">/articles/2015-12/tips-for-Git-users</guid>
         
@@ -96,7 +96,7 @@
 
 &lt;p&gt;如果有任何问题或建议，可以给我&lt;a href=&quot;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#116;&amp;#111;:&amp;#122;&amp;#111;&amp;#117;&amp;#114;&amp;#101;&amp;#110;&amp;#121;&amp;#117;&amp;#097;&amp;#110;&amp;#064;&amp;#103;&amp;#109;&amp;#097;&amp;#105;&amp;#108;&amp;#046;&amp;#099;&amp;#111;&amp;#109;&quot;&gt;发邮件&lt;/a&gt;或是直接在页面下留言。&lt;/p&gt;
 </description>
-        <pubDate>Fri, 11 Sep 2015 00:00:00 +0200</pubDate>
+        <pubDate>Fri, 11 Sep 2015 00:00:00 +0800</pubDate>
         <link>/articles/2015-09/my-first-rails-project</link>
         <guid isPermaLink="true">/articles/2015-09/my-first-rails-project</guid>
         
@@ -130,7 +130,7 @@
 
 &lt;p&gt;Now it’s time to moving on, I am on the train to Marseille while writing this post. Hope everything will be ok.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 10 Sep 2015 00:00:00 +0200</pubDate>
+        <pubDate>Thu, 10 Sep 2015 00:00:00 +0800</pubDate>
         <link>/articles/2015-09/New-site-new-life</link>
         <guid isPermaLink="true">/articles/2015-09/New-site-new-life</guid>
         
@@ -192,7 +192,7 @@ $ curl -O https://raw.githubusercontent.com/nicolashery/mac-dev-setup/master/.al
 
 &lt;p&gt;(Thanks to Nicolas Hery for his &lt;a href=&quot;https://github.com/nicolashery/mac-dev-setup&quot;&gt;setup document&lt;/a&gt;)&lt;/p&gt;
 </description>
-        <pubDate>Wed, 29 Apr 2015 21:32:27 +0200</pubDate>
+        <pubDate>Thu, 30 Apr 2015 03:32:27 +0800</pubDate>
         <link>/articles/2015-04/customizing-your-iterm2</link>
         <guid isPermaLink="true">/articles/2015-04/customizing-your-iterm2</guid>
         

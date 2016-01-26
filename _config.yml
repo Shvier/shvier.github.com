@@ -3,8 +3,8 @@
 # Site wide configuration
 ####################################
 #
-title:       "Renyuan's blog"
-description: 'A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France.'
+title:       "Gallery In Shadow"
+description: 'Hello and welcome.'
 url:         # the base hostname & protocol for your site
 
 #
@@ -12,7 +12,6 @@ url:         # the base hostname & protocol for your site
 # Jekyll configuration
 ####################################
 #
-timezone:          Europe/Paris
 markdown:          kramdown
 highlighter:       pygments
 excerpt_separator: <!--more-->
@@ -31,14 +30,14 @@ kramdown:
 ####################################
 #
 owner:
-  name: Renyuan
+  name: Shvier
   avatar: avatar.jpg
-  job: "PHP & Ruby Developer"
-  bio: "A backend developer who loves design awesome things. Working for RendezvousCheznous atm in Marseille, France."
-  email: zourenyuan@gmail.com
-  disqus-shortname: renyuanzblog
-  twitter: alittlered3 #username
-  facebook: #username
+  job: "iOS & indie game Developer"
+  bio: "Love it, do it."
+  email: Shvier@sina.com
+  disqus-shortname: ShvierBlog
+  twitter: Shvier #username
+  facebook: SherlockVier#username
   google:
     plus: #username
     analytics: UA-62251910-1
@@ -46,7 +45,7 @@ owner:
     ad-client:
     ad-slot:
   bing-verify:
-  github: renyuanz #username
+  github: Shvier #username
   stackoverflow: #123456/username   from a "http://stackoverflow.com/users/123456/username" link
   linkedin: #username
   xing: #username
