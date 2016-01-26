@@ -21,7 +21,7 @@ google_plus_username: 102772374180629771368  # Replace this with your Google+ us
 facebook_username:    SherlockVier  # Replace this with your Facebook username
 
 # Build settings
-markdown: kramdown
-
-highligter: pygments
 markdown: redcarpet
+redcarpet:
+    extensions: [ "hard_wrap","autolink", "tables", "strikethrough", "superscript", "with_toc_data", "highlight", "prettify","no_intra_emphasis"]
+highligter: pygments
