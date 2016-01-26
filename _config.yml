@@ -22,3 +22,6 @@ facebook_username:    SherlockVier  # Replace this with your Facebook username
 
 # Build settings
 markdown: kramdown
+
+highligter: pygments
+markdown: redcarpet

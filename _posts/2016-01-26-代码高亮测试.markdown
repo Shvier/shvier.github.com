@@ -1,0 +1,15 @@
+---
+layout: post
+title: "代码高亮测试"
+date: 2016-01-26 16:26:12
+categories: Guide
+---
+```c
+/* hello world demo */
+#include <stdio.h>
+int main(int argc, char **argv)
+{
+    printf("Hello, World!\n");
+    return 0;
+}
+```
