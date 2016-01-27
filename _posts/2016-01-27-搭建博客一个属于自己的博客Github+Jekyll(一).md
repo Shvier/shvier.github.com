@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Jekyll等准备工作"
+title: "搭建一个属于自己的博客Github+Jekyll(一)Jekyll等准备工作"
 date: 2016-01-27 13:43:00
 categories: Guide
 ---
@@ -25,12 +25,15 @@ Python、git、ruby系统自动集成，需要使用新版本可进行升级
 然后就可以进行安装了
 
 	$ gem install rails
+	
 ###安装jekyll
 	$ gem install jekyll
 	
 如果提示没有权限，在命令前加上`sudo`
+
 ####jekyll简单使用
 jekyll安装成功后，可以新建一个jekyll博客，也可以使用现有博客(模板)，我相信看这个的人大多数会选择后者，所以这里只提后者，前者可以参考这篇博客http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html
+
 #####两条命令
 	$ jekyll build
 当使用jekyll模板时，不难发现工程目录的结构有一定的规律性</br>
@@ -40,9 +43,11 @@ jekyll安装成功后，可以新建一个jekyll博客，也可以使用现有�
 `_site`是博客系统启动后生成的静态HTML，所以这个文件夹是可以删除的，并且在使用`jekyll build`命令后会再次生成`_site`文件夹。
 	
 	$ jekyll server
+	
 在下载好别人的jekyll模板后，一定要记得先本地预览看是否能正常使用。</br>
 使用终端cd命令进入模板目录，输入`jekyll server`会自动生成上面提到的`_site`文件夹，同时我们可以在浏览器输入`127.0.0.0:4000`本地预览该模板。</br>
 需要注意的是部分模板由于jekyll版本不一样，会导致`jekyll server`执行时报错，常见的错误有将`pgyments`替换为`highlighter`(pgyments是一个代码高亮的工具)，这是因为在早期的jekyll版本中，启用pgyments的配置命令是`pgyments = true`，而现在的命令写法是`highlighter = pgyments`(至于其他错误，比如pagenite未安装这种，安装一下就好，再其他的我也不知道了囧)
+
 ###GitHub Pages的生成在下一节讲到
 
 #参考
