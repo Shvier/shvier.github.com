@@ -123,6 +123,7 @@ NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];
 
 ### 字典
 字典在内存中的存储不是连续的，所以无法对字典进行排序。字典也有一些基础方法：
+
 - **`count`**获取字典中键值对的个数
 - **`allKeys`**获取字典中所有的键
 - **`allValues`**获取字典中所有的值
@@ -189,6 +190,7 @@ for (id *obj in set) {
 在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储   
 
 ### NSNumber
+
 将基本数据类型转换为对象
 {% highlight objc %}
 NSNumber *number = [NSNumber numberWithInt:1024];
@@ -196,6 +198,7 @@ int value = [number intValue];
 {% endhighlight %}   
 
 ### NSValue
+
 主要用来将结构体类型转换为对象
 {% highlight objc %}
 NSValue *value = [NSValue valuehWithRange:NSRangeMake(0, 1)];
