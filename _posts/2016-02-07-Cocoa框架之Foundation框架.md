@@ -110,16 +110,7 @@ while (obj = [reverseRator nextObject]) {
 }
 {% endhighlight %}
 
-#### 排序   
-{% highlight objc %}
-//1.NSSortDescriptor
-NSSortDescriptor *des = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];//创建一个排序条件，ascending表示升序或者降序
-NSArray *newArray = [array sortedArrayUsingDescriptors:@[des]];//对不可变数组来说，排序后得到新的数组，原数组不变，如果是可变数组，不会生成新数组
-//2.SEL
-/*该方法需要传入SEL规则即一个返回值类型为NSComparisonResult类型的比较函数，这里传入的是系统函数compare:
-*/
-NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];
-{% endhighlight %}
+
 
 ### 字典
 字典在内存中的存储不是连续的，所以无法对字典进行排序。字典也有一些基础方法：
