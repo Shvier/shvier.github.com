@@ -14,6 +14,7 @@ categories: Objective-C
 Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要的框架：`UIKit`和`Foundation`这两个框架。其中`Foundation`主要提供一些基本数据处理API供程序使用，`UIKit`则包括了许多UI绘制方面的API。
 
 <a name = "sectionone"></a>
+
 # Foundation框架结构 
 如目录结构所看到的，`Foundation`框架可大致看做如下结构：      
 - **Cocoa框架简述**
