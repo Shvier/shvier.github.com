@@ -14,7 +14,25 @@ categories: Objective-C
 Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要的框架：`UIKit`和`Foundation`这两个框架。其中`Foundation`主要提供一些基本数据处理API供程序使用，`UIKit`则包括了许多UI绘制方面的API。
 # Foundation框架结构
 如目录结构所看到的，`Foundation`框架可大致看做如下结构：      
-
+- **Cocoa框架简述**
+- **Foundation框架结构**
+- **NSObject**
+ - **字符串类**
+ - **集合类**
+ - **数值类**
+ - **日期类**
+- **属性**
+- **点语法**
+- **类的扩展**
+ - **协议**
+ - **延展**
+ - **类目**
+- **内存管理**
+ - **原理**
+ - **管理方式**
+ - **拷贝**
+ - **dealloc方法**
+- **KVC** 
 
 # NSObject
 `NSObject`几乎是`Objective-C`中所有类的父类，为什么是几乎？因为部分类继承自`NSProxy`，而这些类的应用比较特殊，在Cocoa程序中比较少见。
