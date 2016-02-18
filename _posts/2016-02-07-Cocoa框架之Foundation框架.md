@@ -4,18 +4,41 @@ title: "Cocoa框架之Foundation框架"
 date: 2016-02-07 14:00:00
 categories: Objective-C
 ---
+
+<a name = "0"></a>   
 # 概述
 写这篇文章的初衷是想把自己之前在博客园的iOS学习笔记整理归纳到这里，这件事拖了好久，现在既然有空就做吧。   
 文章可能有点长，目录如下：   
-- [Go to section 1](#sectionone)
+- [概述](#0)
+- [Cocoa框架简述](#1)
+- [Foundation框架结构](#2)
+- [NSObject](#3)
+  - [字符串类](#3.1)
+  - [集合类](#3.2)
+  - [数值类](#3.3)
+  - [日期类](#3.4)
+- [block](#4)
+- [属性](#5)
+- [点语法](#6)
+- [类的扩展](#7)
+  - [协议](#7.1)
+  - [延展](#7.2)
+  - [类目](#7.3)
+- [内存管理](#8)
+  - [原理](#8.1)
+  - [管理方式](#8.2)
+  - [拷贝](#8.3)
+  - [dealloc方法](#8.4)
+- [KVC](#9)
 
-
+<a name = "1"></a>
 # Cocoa框架简述
 Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要的框架：`UIKit`和`Foundation`这两个框架。其中`Foundation`主要提供一些基本数据处理API供程序使用，`UIKit`则包括了许多UI绘制方面的API。
 
-<a name = "sectionone"></a>   
+<a name = "2"></a>   
 # Foundation框架结构 
-如目录结构所看到的，`Foundation`框架可大致看做如下结构：      
+如目录结构所看到的，`Foundation`框架可大致看做如下结构：
+      
 - **Cocoa框架简述**
 - **Foundation框架结构**
 - **NSObject**
@@ -23,6 +46,7 @@ Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要
  - **集合类**
  - **数值类**
  - **日期类**
+- **block**
 - **属性**
 - **点语法**
 - **类的扩展**
@@ -36,9 +60,11 @@ Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要
  - **dealloc方法**
 - **KVC** 
 
+<a name = "3"></a>
 # NSObject
 `NSObject`几乎是`Objective-C`中所有类的父类，为什么是几乎？因为部分类继承自`NSProxy`，而这些类的应用比较特殊，在Cocoa程序中比较少见。
 
+<a name = "3.1"></a>
 ## 字符串类
 在iOS中字符串类分为两种：`可变字符串`和`不可变字符串`，不止是字符串，其它的几种数据类型：`数组`、`字典`、`集合`都分为可变类型和不可变类型。   
 不论是哪种字符串，iOS都提供了两个基础的方法**`length`**和**`characterAtIndex`**，其它所有方法都是从这两个基础方法中衍生而来。   
@@ -67,6 +93,7 @@ iOS对字符串提供了很多种初始化的方式：`alloc init`、`便利构�
 - **`replaceCharactersInRange:`**替换指定范围内的子串
 - **`setString:`**替换整个字符串
 
+<a name = "3.2"></a>
 ## 集合类
 与字符串类似，集合类也都分为可变类型和不可变类型
 
@@ -188,6 +215,7 @@ for (id *obj in set) {
 #### 计数集合
 `NSCountedSet`添加各个对象时会自动统计各个对象的个数
 
+<a name = "3.3"></a>
 ## 数值类
 在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储   
 
@@ -207,13 +235,16 @@ NSValue *value = [NSValue valuehWithRange:NSRangeMake(0, 1)];
 NSRangeMake range = [value rangeValue];
 {% endhighlight %}
 
+<a name = "3.4"></a>
 ## 日期类
 
 ### NSDate
 
+<a name = "4"></a>
 # block
 `<return type>(^blockName)(list of arguments) = ^(arguments) {body};`
 
+<a name = "5"></a>
 # 属性
 采用`@property`关键字
 
@@ -265,28 +296,36 @@ NSRangeMake range = [value rangeValue];
 }
 {% endhighlight %}
 
+<a name = "6"></a>
 # 点语法
 
+<a name = "7"></a>
 # 类的扩展
 
+<a name = "7.1"></a>
 ## 协议`protocol`
 - 协议是一套标准，只有.h文件
 - 接受协议的类实现协议中定义的方法
 - 协议中的方法默认是必须实现的，即`@required`，`@optional`修饰的方法是可选的，可实现也可以不实现
 
+<a name = "7.2"></a>
 ## 延展`extension`
 - 为能够获得源代码的类添加私有示例变量，即在类的.m里定义各个变量和方法
 
+<a name = "7.3"></a>
 ## 类目`category`
 - 扩充的功能会成为原有类的一部分   
 - 可以通过原有类或者原有类的对象直接调用，并且可以继承   
 - 该方式只能扩充方法，不能扩充实例变量
 
+<a name = "8"></a>
 # 内存管理
 
+<a name = "8.1"></a>
 ## 管理方式
 iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾回收`和`引用计数`的内存管理方式
 
+<a name = "8.2"></a>
 ## 原理
 在iOS/OSX程序中，每当对象进行一次`生成`或者`持有`操作时，引用计数加1，每进行一次`释放`操作时引用计数减1，而当引用计数为0`(在实际中并不会为0，而是1，只是为了语言表达方便说成是0)`时，从内存中销毁该对象
 - **`生成对象alloc`**对象的引用计数加1
@@ -294,12 +333,14 @@ iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾�
 - **`释放对象release/autorelease`**对象的引用计数减1
 - **`dealloc`**销毁对象  
 
+<a name = "8.3"></a>
 ## 规则
 - alloc创建的必须释放，便利构造器创建的不要释放
 - 加入容器中的对象会被执行一次retain操作，引用计数加1
 - 容器移除对象，会向对象发送一次release消息，让对象的引用计数减1
 - 当容器释放对象时，会向容器中的所有对象发送一次release消息
 
+<a name = "8.4"></a>
 ## 拷贝
 - **`伪拷贝`**拷贝地址，相当于retain操作，引用计数加1
 {% highlight objc %}
@@ -324,8 +365,10 @@ iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾�
 }
 {% endhighlight %}
 
+<a name = "8.5"></a>
 ## dealloc方法
 
+<a name = "9"></a>
 # KVC
 `KVC`即`key-value-coding`，中文是键值编码的意思。KVC提供了一种使用字符串(key)而不是访问器的方法，去访问一个对象的实例变量
 
