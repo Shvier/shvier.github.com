@@ -162,6 +162,7 @@ while (key = [rator nextObject]) {
 
 #### 常用方法
 - **`containsObject:`**判断集合中是否包含某一指定的对象
+
 #### 可变集合特有方法
 - **`addObject:`**添加一个对象
 - **`removeObject:`**移除一个对象
@@ -185,14 +186,14 @@ for (id *obj in set) {
 `NSCountedSet`添加各个对象时会自动统计各个对象的个数
 
 ## 数值类
-在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储
+在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储   
 
 ### NSNumber
 将基本数据类型转换为对象
 {% highlight objc %}
 NSNumber *number = [NSNumber numberWithInt:1024];
 int value = [number intValue];
-{% endhighlight %}
+{% endhighlight %}   
 
 ### NSValue
 主要用来将结构体类型转换为对象
