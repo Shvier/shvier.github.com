@@ -118,7 +118,8 @@ NSArray *newArray = [array sortedArrayUsingDescriptors:@[des]];//对不可变数
 //2.SEL
 /*该方法需要传入SEL规则即一个返回值类型为NSComparisonResult类型的比较函数，这里传入的是系统函数compare:
 */
-NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];   {% endhighlight %}
+NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];
+{% endhighlight %}
 
 ### 字典
 字典在内存中的存储不是连续的，所以无法对字典进行排序。字典也有一些基础方法：
@@ -185,12 +186,14 @@ for (id *obj in set) {
 
 ## 数值类
 在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储
+
 ### NSNumber
 将基本数据类型转换为对象
 {% highlight objc %}
 NSNumber *number = [NSNumber numberWithInt:1024];
 int value = [number intValue];
 {% endhighlight %}
+
 ### NSValue
 主要用来将结构体类型转换为对象
 {% highlight objc %}
@@ -201,6 +204,7 @@ NSRangeMake range = [value rangeValue];
 ## 日期类
 
 ### NSDate
+
 # block
 `<return type>(^blockName)(list of arguments) = ^(arguments) {body};`
 
