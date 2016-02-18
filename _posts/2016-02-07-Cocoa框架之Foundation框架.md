@@ -110,7 +110,7 @@ while (obj = [reverseRator nextObject]) {
 }
 {% endhighlight %}
 
-#### 排序
+#### 排序   
 {% highlight objc %}
 //1.NSSortDescriptor
 NSSortDescriptor *des = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];//创建一个排序条件，ascending表示升序或者降序
