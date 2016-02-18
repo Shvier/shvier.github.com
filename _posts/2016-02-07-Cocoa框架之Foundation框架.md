@@ -149,13 +149,16 @@ while (key = [rator nextObject]) {
 }
 {% endhighlight %}
 ### 集合
+
 #### 特点
 - **`互异性`**集合中不能同时存在两个相同的对象
 - **`无序性`**
 - **`经常被用来处理重用问题`**
+
 #### 基础方法
 - **`count`**获取集合中对象的个数
 - **`anyObject`**从集合中取出一个对象，这个对象是固定的，并不是随机的
+
 #### 常用方法
 - **`containsObject:`**判断集合中是否包含某一指定的对象
 #### 可变集合特有方法
@@ -228,6 +231,7 @@ NSRangeMake range = [value rangeValue];
 对象类型
 - **`copy`**
 遵循了`<NSCopying>`协议的对象类型
+
 ### ARC环境
 - **`assign`**
 基本数据类型
@@ -314,6 +318,7 @@ iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾�
 
 # KVC
 `KVC`即`key-value-coding`，中文是键值编码的意思。KVC提供了一种使用字符串(key)而不是访问器的方法，去访问一个对象的实例变量
+
 ## 常用方法
 - **`valueForKey:`**通过key(实例变量名)获取实例变量的值
 - **`setValue: forKey:`**通过key(实例变量名)给实例变量赋值
