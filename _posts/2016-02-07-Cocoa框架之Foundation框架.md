@@ -76,7 +76,7 @@ iOS中数组最大的特点就是可以存储不同类型的对象，需要注�
 - **`replaceObjectAtIndex: withObject:`**使用指定的对象替换指定位置的对象
 - **`exchangeObjectAtIndex: withObjectIndex:`**交换指定两个下标对应的对象
 #### 枚举
-```objective-c
+```objc
 //1.for循环
 for (int i = 0; i < array.count; i ++) {
 	//...
