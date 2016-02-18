@@ -13,7 +13,7 @@ categories: Objective-C
 # Cocoa框架简述
 Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要的框架：`UIKit`和`Foundation`这两个框架。其中`Foundation`主要提供一些基本数据处理API供程序使用，`UIKit`则包括了许多UI绘制方面的API。
 # Foundation框架结构
-如目录结构所看到的，`Foundation`框架可大致看做如下结构：   
+如目录结构所看到的，`Foundation`框架可大致看做如下结构：      
 - **Cocoa框架简述**
 - **Foundation框架结构**
 - **NSObject**
@@ -33,16 +33,21 @@ Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要
  - **拷贝**
  - **dealloc方法**
 - **KVC** 
+
 # NSObject
 `NSObject`几乎是`Objective-C`中所有类的父类，为什么是几乎？因为部分类继承自`NSProxy`，而这些类的应用比较特殊，在Cocoa程序中比较少见。
+
 ## 字符串类
 在iOS中字符串类分为两种：`可变字符串`和`不可变字符串`，不止是字符串，其它的几种数据类型：`数组`、`字典`、`集合`都分为可变类型和不可变类型。   
 不论是哪种字符串，iOS都提供了两个基础的方法**`length`**和**`characterAtIndex`**，其它所有方法都是从这两个基础方法中衍生而来。   
+
 ### 初始化
 iOS对字符串提供了很多种初始化的方式：`alloc init`、`便利构造器`、`字面量`
+
 ### 文件操作
 - **`stringWithContentsOfFile: encoding: error:`**读取文件
 - **`writeToFile: atomically: encoding: error:`**写入文件，其中`atomically`表示一次性写入，如果写入过程中出错，就全部都不要写入了
+
 ### 常用方法
 - **`isEqualToString:`**用于比较两个字符串是否相等
 - **`compare:`**比较两个字符串的大小，返回一个`NSComparisonResult`枚举类型的值
@@ -52,20 +57,26 @@ iOS对字符串提供了很多种初始化的方式：`alloc init`、`便利构�
 - **`intValue`**该方法可将字符串类型转为`NSInteger`类型
 - **`uppercaseString`**将字符串全部转换为大写，与之对应的方法有**`lowercaseString`**将字符串转换为小写以及**`capitalizedString`**将字符串的首字母全部转为大写
 - **`hasPrefix:`**传入一个字符串参数，用来判断字符串的头是否与传入的参数匹配，与之对应的方法有**`hasSuffix`**用来判断字符串的尾部是否与传入的参数匹配
+
 ### 可变字符串特有方法
 - **`appendFormat:`**追加字符串
 - **`insertString: atIndex:`**在指定的下标位置插入字符串
 - **`deleteCharactersInRange:`**删除指定范围内的子串
 - **`replaceCharactersInRange:`**替换指定范围内的子串
 - **`setString:`**替换整个字符串
+
 ## 集合类
 与字符串类似，集合类也都分为可变类型和不可变类型
+
 ### 数组
 iOS中数组最大的特点就是可以存储不同类型的对象，需要注意的是`必须存放的是对象类型`。数组也有两个基础方法**`containsObject:`**和**`indexOfObject:`**
+
 #### 初始化
+
 #### 常用方法
 - **`componentsSeparatedByString:`**该方法由`字符串调用`需要传入一个字符串类型的参数，将字符串按给定的参数分割成数组，并将这个数组返回
 - **`componentsJoinedByString:`**该方法将数组用传入的字符串拼接起来，并将拼接后的字符串返回
+
 #### 可变数组特有方法
 - **`addObject:`**给数组添加一个对象
 - **`insertObject: atIndex:`**在数组中指定的位置插入对象
@@ -75,6 +86,7 @@ iOS中数组最大的特点就是可以存储不同类型的对象，需要注�
 - **`removeObjectAtIndex:`**移除数组中指定位置的对象
 - **`replaceObjectAtIndex: withObject:`**使用指定的对象替换指定位置的对象
 - **`exchangeObjectAtIndex: withObjectIndex:`**交换指定两个下标对应的对象
+
 #### 枚举
 {% highlight objc %}
 //1.for循环
@@ -97,8 +109,9 @@ while (obj = [reverseRator nextObject]) {
 	//...
 }
 {% endhighlight %}
+
 #### 排序
-```objectivec
+{% highlight objc %}
 //1.NSSortDescriptor
 NSSortDescriptor *des = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];//创建一个排序条件，ascending表示升序或者降序
 NSArray *newArray = [array sortedArrayUsingDescriptors:@[des]];//对不可变数组来说，排序后得到新的数组，原数组不变，如果是可变数组，不会生成新数组
@@ -106,20 +119,25 @@ NSArray *newArray = [array sortedArrayUsingDescriptors:@[des]];//对不可变数
 /*该方法需要传入SEL规则即一个返回值类型为NSComparisonResult类型的比较函数，这里传入的是系统函数compare:
 */
 NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];
-```
+{% endhighlight %}
+
 ### 字典
 字典在内存中的存储不是连续的，所以无法对字典进行排序。字典也有一些基础方法：
 - **`count`**获取字典中键值对的个数
 - **`allKeys`**获取字典中所有的键
 - **`allValues`**获取字典中所有的值
 - **`objectForKey:`**根据键获得对应的值
+
 #### 初始化
+
 #### 可变字典特有方法
+
 - **`setObject: forKey:`**修改某一键值对的值，如果所给的键没有找到，则添加新的键值对
 - **`remoevObjectForKey:`**根据键移除指定的键值对
 - **`removeAllObjects`**移除字典中所有的键值对
+
 #### 枚举
-```objectivec
+{% highlight objc %}
 //1.for in
 for (id *obj in dict) {
 	//...
@@ -130,7 +148,7 @@ id key = nil;
 while (key = [rator nextObject]) {
 	//...
 }
-```
+{% endhighlight %}
 ### 集合
 #### 特点
 - **`互异性`**集合中不能同时存在两个相同的对象
@@ -146,7 +164,7 @@ while (key = [rator nextObject]) {
 - **`removeObject:`**移除一个对象
 - **`removeAllObjects`**移除所有对象
 #### 枚举
-```objectivec
+{% highlight objc %}
 //1.枚举器
 NSEnumerator *rator = [set objectEnumerator];
 id value = nil;
@@ -157,23 +175,23 @@ while (value = [rator nextObject]) {
 for (id *obj in set) {
 	//...
 }
-```
+{% endhighlight %}
 #### 计数集合
 `NSCountedSet`添加各个对象时会自动统计各个对象的个数
 ## 数值类
 在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储
 ### NSNumber
 将基本数据类型转换为对象
-```objectivec
+{% highlight objc %}
 NSNumber *number = [NSNumber numberWithInt:1024];
 int value = [number intValue];
-```
+{% endhighlight %}
 ### NSValue
 主要用来将结构体类型转换为对象
-```objectivec
+{% highlight objc %}
 NSValue *value = [NSValue valuehWithRange:NSRangeMake(0, 1)];
 NSRangeMake range = [value rangeValue];
-```
+{% endhighlight %}
 ## 日期类
 ### NSDate
 # block
@@ -213,7 +231,7 @@ NSRangeMake range = [value rangeValue];
 遵循了`<NSCopying>`协议的对象类型
 ## setter/getter
 属性赋值和取值的方法，原理如下：
-```objectivec
+{% highlight objc %}
 //setter
 - (void)setName:(NSString *)name {
 	_name = name;
@@ -222,7 +240,7 @@ NSRangeMake range = [value rangeValue];
 - (NSString *)name {
 	return name;
 }
-```
+{% endhighlight %}
 # 点语法
 # 类的扩展
 ## 协议`protocol`
@@ -251,27 +269,27 @@ iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾�
 - 当容器释放对象时，会向容器中的所有对象发送一次release消息
 ## 拷贝
 - **`伪拷贝`**拷贝地址，相当于retain操作，引用计数加1
-```objectivec
+{% highlight objc %}
 - (id)copyWithZone:(NSZone *)zone {
 	return [self retain];
 }
 ```
 - **`浅拷贝`**为对象开辟新的空间，但是两个对象的实例变量指向同一块空间
-```objectivec
+{% highlight objc %}
 - (id)copyWithZone:(NSZone *)zone {
 	Student *student = [Student allocWithZone:zone] init];
 	student.name = self.name;
 	return student;
 }
-```
+{% endhighlight %}
 - **`深拷贝`**为对象开辟新的空间，并且两个对象的实例变量指向不同的空间
-```objectivec
+{% highlight objc %}
 - (id)copyWithZone:(NSZone *)zone {
 	Student *student = [Student allocWithZone:zone] init];
 	student.name = [self.name mutableCopy];
 	return student;
 }
-```
+{% endhighlight %}
 ## dealloc方法
 # KVC
 `KVC`即`key-value-coding`，中文是键值编码的意思。KVC提供了一种使用字符串(key)而不是访问器的方法，去访问一个对象的实例变量
