@@ -118,9 +118,7 @@ NSArray *newArray = [array sortedArrayUsingDescriptors:@[des]];//对不可变数
 //2.SEL
 /*该方法需要传入SEL规则即一个返回值类型为NSComparisonResult类型的比较函数，这里传入的是系统函数compare:
 */
-NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];   
-
-{% endhighlight %}
+NSArray *newArray = [array sortedArrayUsingSelector:@selector(compare:)];   {% endhighlight %}
 
 ### 字典
 字典在内存中的存储不是连续的，所以无法对字典进行排序。字典也有一些基础方法：
@@ -164,6 +162,7 @@ while (key = [rator nextObject]) {
 - **`addObject:`**添加一个对象
 - **`removeObject:`**移除一个对象
 - **`removeAllObjects`**移除所有对象
+
 #### 枚举
 {% highlight objc %}
 //1.枚举器
@@ -177,8 +176,10 @@ for (id *obj in set) {
 	//...
 }
 {% endhighlight %}
+
 #### 计数集合
 `NSCountedSet`添加各个对象时会自动统计各个对象的个数
+
 ## 数值类
 在Objective-C中集合类必须存储对象类型的数组，所以对基本数据类型，需要将其转换为数值对象来存储
 ### NSNumber
@@ -193,17 +194,22 @@ int value = [number intValue];
 NSValue *value = [NSValue valuehWithRange:NSRangeMake(0, 1)];
 NSRangeMake range = [value rangeValue];
 {% endhighlight %}
+
 ## 日期类
+
 ### NSDate
 # block
 `<return type>(^blockName)(list of arguments) = ^(arguments) {body};`
+
 # 属性
 采用`@property`关键字
+
 ## 原子性
 - **`atomic`**
 默认修饰符。保证了实例变量在多线程访问是安全的，但是会大量消耗性能
 - **`nonatomic`**
 与上一个相反，不允许进行多线程访问
+
 ## 读写性
 - **`readwrite`**
 默认修饰符。读写状态，通知编译器，既生成属性的`getter`方法，也生成`setter`方法
@@ -214,6 +220,7 @@ NSRangeMake range = [value rangeValue];
 - **`getter=`**
 为属性的`getter`方法重新命名
 ## 语义特性
+
 ### MRC环境
 - **`assign`**
 基本数据类型
@@ -230,6 +237,7 @@ NSRangeMake range = [value rangeValue];
 对象类型，但是内部不会对对象做retain操作
 - **`copy`**
 遵循了`<NSCopying>`协议的对象类型
+
 ## setter/getter
 属性赋值和取值的方法，原理如下：
 {% highlight objc %}
@@ -242,39 +250,49 @@ NSRangeMake range = [value rangeValue];
 	return name;
 }
 {% endhighlight %}
+
 # 点语法
+
 # 类的扩展
+
 ## 协议`protocol`
 - 协议是一套标准，只有.h文件
 - 接受协议的类实现协议中定义的方法
 - 协议中的方法默认是必须实现的，即`@required`，`@optional`修饰的方法是可选的，可实现也可以不实现
+
 ## 延展`extension`
 - 为能够获得源代码的类添加私有示例变量，即在类的.m里定义各个变量和方法
+
 ## 类目`category`
 - 扩充的功能会成为原有类的一部分   
 - 可以通过原有类或者原有类的对象直接调用，并且可以继承   
 - 该方式只能扩充方法，不能扩充实例变量
+
 # 内存管理
+
 ## 管理方式
 iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾回收`和`引用计数`的内存管理方式
+
 ## 原理
 在iOS/OSX程序中，每当对象进行一次`生成`或者`持有`操作时，引用计数加1，每进行一次`释放`操作时引用计数减1，而当引用计数为0`(在实际中并不会为0，而是1，只是为了语言表达方便说成是0)`时，从内存中销毁该对象
 - **`生成对象alloc`**对象的引用计数加1
 - **`持有对象retain`**对象的引用计数加1
 - **`释放对象release/autorelease`**对象的引用计数减1
 - **`dealloc`**销毁对象  
+
 ## 规则
 - alloc创建的必须释放，便利构造器创建的不要释放
 - 加入容器中的对象会被执行一次retain操作，引用计数加1
 - 容器移除对象，会向对象发送一次release消息，让对象的引用计数减1
 - 当容器释放对象时，会向容器中的所有对象发送一次release消息
+
 ## 拷贝
 - **`伪拷贝`**拷贝地址，相当于retain操作，引用计数加1
 {% highlight objc %}
 - (id)copyWithZone:(NSZone *)zone {
 	return [self retain];
 }
-```
+{% endhighlight %}
 - **`浅拷贝`**为对象开辟新的空间，但是两个对象的实例变量指向同一块空间
 {% highlight objc %}
 - (id)copyWithZone:(NSZone *)zone {
@@ -291,7 +309,9 @@ iOS程序采用`引用计数`的内存管理方式，而OSX程序采用`垃圾�
 	return student;
 }
 {% endhighlight %}
+
 ## dealloc方法
+
 # KVC
 `KVC`即`key-value-coding`，中文是键值编码的意思。KVC提供了一种使用字符串(key)而不是访问器的方法，去访问一个对象的实例变量
 ## 常用方法
