@@ -4,18 +4,17 @@ title: "Cocoa框架之Foundation框架"
 date: 2016-02-07 14:00:00
 categories: Objective-C
 ---
-
-[TOC]
-
 # 概述
 写这篇文章的初衷是想把自己之前在博客园的iOS学习笔记整理归纳到这里，这件事拖了好久，现在既然有空就做吧。   
 文章可能有点长，目录如下：   
+- [Go to section 1](#sectionone)
 
 
-  
 # Cocoa框架简述
 Cocoa框架可以看做许多框架的集合，在iOS中包括两个非常重要的框架：`UIKit`和`Foundation`这两个框架。其中`Foundation`主要提供一些基本数据处理API供程序使用，`UIKit`则包括了许多UI绘制方面的API。
-# Foundation框架结构
+
+<a name = "sectionone"></a>
+# Foundation框架结构 
 如目录结构所看到的，`Foundation`框架可大致看做如下结构：      
 - **Cocoa框架简述**
 - **Foundation框架结构**
