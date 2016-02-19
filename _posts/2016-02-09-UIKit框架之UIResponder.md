@@ -82,7 +82,11 @@ UIView相对父视图坐标系的位置以及大小。
 
 ### transform
 
-`CGAffineTransform`类型，通过该属性可以对UIView进行矩阵变换，包括旋转、平移、缩放等。
+`transform`是UIView的一个重要属性，它在矩阵层面上改变UIView的显示状态，能实现UIView的缩放、旋转、平移等功能。
+
+- **`CGAffineTransformMakeTranslation`**
+- **`CGAffineTransformMakeScale`**
+- **`CGAffineTransformMakeRotation`**
 
 <a name = "3"></a>
 

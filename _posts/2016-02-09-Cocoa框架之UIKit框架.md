@@ -58,16 +58,23 @@ categories: Objective-C
     - [UITableViewController]()
     
 在`UIKit`框架中，有两个非常重要的子类：`UIResponder(响应者类)`和`UIGestureRecognizer(手势识别类)`。   
-顾名思义，`UIResponder`用来构建各个可以交互的界面并对此进行逻辑处理，而`UIGestureRecognizer`则根据不同的输入，或者说交互，来进行对应的操作。  
+顾名思义，`UIResponder`用来构建各个可以交互的界面并对此进行逻辑处理，而`UIGestureRecognizer`则根据不同的输入，或者说交互，来进行对应的操作。 
 
-### 响应者链
+对UI程序来说，一个程序分为三块：`应用程序对象`、`应用程序代理`、`事件循环`。
 
-iOS中所有能响应事件(触摸、晃动、远程事件)的对象都是响应者。   
-当硬件检测到触摸操作时，会将信息交给`UIApplication`，按`UIApplaction`->`window`->`viewController`->`view`->`所有子视图`的顺序开始检测，而处理触摸事件时则从相反的方向去处理，一旦有某一个环节无法响应，那么丢弃该次触摸操作。涉及到以下方法：
+# 应用程序代理
 
-- **`touchesBegan: withEvent:`**
-- **`touchesMoved: withEvent:`**
-- **`touchesEnded: withEvent:`**
-- **`touchesCancelled: withEvent:`**
-   
-因此，可以使用`userInteractionEnabled`来控制某个控件是否可以响应事件。
+1.应用程序代理作用,根据应用程序传递过来的状态做出相应的处理。   2.应用程序的状态有很多,比如:程序启动、进入活跃状态、进到后台、内存警告、收到远程消息等等。   3.任何接受了UIApplicationDelegate协议的对象都可以成为应用程 序代理。   4.一旦应用程序的某种状态触发,就会执行相应的代理方法。
+
+- **`application: didFinishLaunchingWithOptions:`**   
+告诉delegate程序启动即将完成，程序准备要运行。(delegate实现这个方法时，要创建window对象，将程序内容通过window呈现给用户)
+- **`applicationDidBecomeActive:`**   
+告诉delegate应用程序已经进入活跃状态(重新执行被暂停的任务)
+- **`applicationWillResignActive:`**   
+告诉delegate应用程序即将进入非活跃状态(暂停游戏、停止timer等)
+- **`applicationDidEnterBackground:`**   
+告诉delegate已经进入到了后台(存储用户数据、释放一些共享资源、停止timer等)
+- **`applicationWillEnterForeground:`**   
+告诉delegate应用程序即将进入前台(恢复所有进入后台时暂停的任务)
+- **`applicationWillTerminate:`**   
+告诉delegate应用程序即将退出(从内存中清除)，iOS4之后由**`applicationDidEnterBackground:`**替代
