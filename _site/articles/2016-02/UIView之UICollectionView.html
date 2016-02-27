@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIView之UICollectionView</title>
+  <meta name="description" content="目录  UICollectionView概述          UICollectionViewFlowLayout      初始化      设置代理                  必须实现的代理方法          选择实现的代理方法          布局协议                    ...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIView%E4%B9%8BUICollectionView">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIView之UICollectionView">UIView之UICollectionView</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        14 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    3 mins read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+<ul>
+  <li><a href="#1">UICollectionView概述</a>
+    <ul>
+      <li><a href="#1.1">UICollectionViewFlowLayout</a></li>
+      <li><a href="#1.2">初始化</a></li>
+      <li><a href="#1.3">设置代理</a>
+        <ul>
+          <li><a href="#1.3.1">必须实现的代理方法</a></li>
+          <li><a href="#1.3.2">选择实现的代理方法</a></li>
+          <li><a href="#1.3.3">布局协议</a></li>
+        </ul>
+      </li>
+      <li><a href="#1.4">自定义瀑布流</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h1 id="uicollectionview">UICollectionView概述</h1>
+
+<ul>
+  <li>UICollection的实现跟tableView不同的地方在于item的布局，需要用<code>UICollectionViewLayout</code>类来描述视图的布局</li>
+</ul>
+
+<p><a name="1.1"></a></p>
+
+<h3 id="uicollectionviewflowlayout">UICollectionViewFlowLayout</h3>
+
+<h4 id="section-1">初始化</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UICollectionViewFlowLayout</span> <span class="o">*</span><span class="n">flowLayout</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UICollectionViewFlowLayou</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="c1">// 设置每个item的大小</span>
+<span class="n">flowLayout</span><span class="p">.</span><span class="n">itemSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="c1">// 设置每个item的最小列间距(默认是10)</span>
+<span class="n">flowLayout</span><span class="p">.</span><span class="n">minimumInteritemSpacing</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+<span class="c1">// 设置分区间隔(上，左，下，右)</span>
+<span class="n">flowLayout</span><span class="p">.</span><span class="n">sectionInset</span> <span class="o">=</span> <span class="n">UIEdgeInsetsMake</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="c1">// 设置UICollectionView的滑动方向</span>
+<span class="n">flowLayout</span><span class="p">.</span><span class="n">scrollDirection</span> <span class="o">=</span> <span class="n">UICollectionViewScrollDirectionVertical</span><span class="p">;</span>
+<span class="c1">// 头部引用的尺寸</span>
+<span class="n">flowLayout</span><span class="p">.</span><span class="n">headerReferenceSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="c1">// 尾部引用的尺寸</span>
+<span class="n">flowLayout</span><span class="p">.</span><span class="n">footerReferenceSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span></code></pre></figure>
+
+<p><a name="1.2"></a></p>
+
+<h3 id="section-2">初始化</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UICollectionView</span> <span class="o">*</span><span class="n">collectionView</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UICollectionView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">].</span><span class="n">bounds</span> <span class="nl">collectionViewLayout</span><span class="p">:</span><span class="n">flowLayout</span><span class="p">];</span></code></pre></figure>
+
+<p><a name="1.3"></a></p>
+
+<h3 id="section-3">设置代理</h3>
+
+<ul>
+  <li>UICollectionView和UITableView一样，也需要遵守两个代理协议
+    <ol>
+      <li><code>UICollectionViewDelegate</code></li>
+      <li><code>UICollectionViewDataSource</code></li>
+    </ol>
+  </li>
+</ul>
+
+<p><a name="1.3.1"></a></p>
+
+<h4 id="section-4">必须实现的代理方法</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 返回item的个数</span>
+<span class="p">-</span> <span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nf">collectionView:</span><span class="p">(</span><span class="bp">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">numberOfItemsInSection:</span><span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nv">section</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="mi">100</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// 创建item视图对象</span>
+<span class="p">-</span> <span class="p">(</span><span class="bp">UICollectionViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">collectionView:</span><span class="p">(</span><span class="bp">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">cellForItemAtIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span>
+	<span class="bp">UICollectionViewCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">collectionView</span> <span class="nl">dequeueReusableCellWithReuseIdentifier</span><span class="p">:</span><span class="s">@&quot;collectionCell&quot;</span> <span class="nl">forIndexPath</span><span class="p">:</span><span class="n">indexPath</span><span class="p">];</span>
+	<span class="n">cell</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">orangeColor</span><span class="p">];</span>
+	<span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="1.3.2"></a></p>
+
+<h4 id="section-5">选择实现的代理方法</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"> 
+<span class="c1">// 返回有多少个分区</span>
+<span class="p">-</span> <span class="p">(</span><span class="bp">NSInteger</span><span class="p">)</span><span class="nf">numberOfSectionsInCollectionView:</span><span class="p">(</span><span class="bp">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// item点击方法</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">collectionView:</span><span class="p">(</span><span class="bp">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">didSelectItemAtIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span>
+	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;clicked!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">// 返回头部、尾部视图样式</span>
+<span class="c1">// UICollectionView不能像UITableView一样直接指定头部和尾部视图，需要注册使用</span>
+<span class="c1">// 注册头部视图</span>
+<span class="p">[</span><span class="n">collectionView</span> <span class="nl">registerClass</span><span class="p">:[</span><span class="bp">UICollectionReusableView</span> <span class="k">class</span><span class="p">]</span> <span class="nl">forSupplementaryViewOfKind</span><span class="p">:</span><span class="nl">UICollectionElementKindSectionHeaderwithReuseIdentifier</span><span class="p">:</span><span class="s">@&quot;headerView&quot;</span><span class="p">];</span>
+<span class="c1">// 注册尾部视图</span>
+<span class="p">[</span><span class="n">collectionView</span> <span class="nl">registerClass</span><span class="p">:[</span><span class="bp">UICollectionReusableView</span> <span class="k">class</span><span class="p">]</span> <span class="nl">forSupplementaryViewOfKind</span><span class="p">:</span><span class="nl">UICollectionEelementKindSectionFooterwithReuseIdentifer</span><span class="p">:</span><span class="s">@&quot;footerView&quot;</span><span class="p">];</span>
+<span class="c1">// 返回头部和尾部的视图样式</span>
+<span class="p">-</span> <span class="p">(</span><span class="bp">UICollectionReusableView</span> <span class="o">*</span><span class="p">)</span><span class="nf">collectionView:</span><span class="p">(</span><span class="bp">UICollectionView</span> <span class="o">*</span><span class="p">)</span><span class="nv">collectionView</span> <span class="nf">viewForSupplementaryElementOfKind:</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">kind</span> <span class="nf">atIndexPath:</span><span class="p">(</span><span class="bp">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="p">([</span><span class="n">kind</span> <span class="nl">isEqualToString</span><span class="p">:</span><span class="n">UICollectionElementKindSectionHeader</span><span class="p">])</span> <span class="p">{</span>
+		<span class="bp">UICollectionReusableView</span> <span class="o">*</span><span class="n">headerView</span> <span class="o">=</span> <span class="p">[</span><span class="n">collectionView</span> <span class="nl">dequeueReusableSupplementaryViewOfKind</span><span class="p">:</span><span class="nl">UICollectionElementKindSecionHeaderwithReuseIdentifier</span><span class="p">:</span><span class="s">@&quot;headerView&quot;</span> <span class="nl">forIndexPath</span><span class="p">:</span><span class="n">indexPath</span><span class="p">];</span>
+		<span class="c1">// 设置头部视图的样式</span>
+		<span class="n">headerView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">orangeColor</span><span class="p">];</span>
+		<span class="k">return</span> <span class="n">headerView</span><span class="p">;</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="bp">UICollectionReusableView</span> <span class="o">*</span><span class="n">footerView</span> <span class="o">=</span> <span class="p">[</span><span class="n">collectionView</span> <span class="nl">dequeueReusableSupplementaryViewOfKind</span><span class="p">:</span><span class="nl">UICollectionElementKindSecionHeaderwithReuseIdentifier</span><span class="p">:</span><span class="s">@&quot;footerView&quot;</span> <span class="nl">forIndexPath</span><span class="p">:</span><span class="n">indexPath</span><span class="p">];</span>
+		<span class="c1">// 设置头部视图的样式</span>
+		<span class="n">footerView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">greenColor</span><span class="p">];</span>
+		<span class="k">return</span> <span class="n">footerView</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="1.3.3"></a></p>
+
+<h4 id="section-6">布局协议</h4>
+
+<ul>
+  <li><strong><code>UICollectionViewDelegateFlowLayout</code></strong> <br />
+对UICollectionViewDelegate的扩展</li>
+</ul>
+
+<p><a name="1.4"></a></p>
+
+<h3 id="section-7">自定义瀑布流</h3>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIView%E4%B9%8BUICollectionView" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIView%E4%B9%8BUICollectionView" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIView%E4%B9%8BUICollectionView" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIView%E4%B9%8BUICollectionView" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIView%E4%B9%8BUICollectionView" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

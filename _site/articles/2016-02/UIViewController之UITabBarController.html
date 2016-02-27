@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIViewController之UITabBarController</title>
+  <meta name="description" content="目录  UITabBarController概述          初始化      重要属性      协议方法      UITabBar      UITabBarItem      UIAppearance      UITabBarController概述  与UINavigationControlle...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIViewController%E4%B9%8BUITabBarController">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIViewController之UITabBarController">UIViewController之UITabBarController</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        13 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    1 min read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+
+<ul>
+  <li><a href="#1">UITabBarController概述</a>
+    <ul>
+      <li><a href="#1.1">初始化</a></li>
+      <li><a href="#1.2">重要属性</a></li>
+      <li><a href="#1.3">协议方法</a></li>
+      <li><a href="#1.4">UITabBar</a></li>
+      <li><a href="#1.5">UITabBarItem</a></li>
+      <li><a href="#1.6">UIAppearance</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h1 id="uitabbarcontroller">UITabBarController概述</h1>
+
+<ul>
+  <li>与UINavigationController不同，UITabBarController用来管理没有层级递进关系的视图</li>
+</ul>
+
+<p><a name="1.1"></a></p>
+
+<h3 id="section-1">初始化</h3>
+
+<ol>
+  <li>创建UITabBarController对象</li>
+  <li>将UITabBarController管理的视图控制器放到一个数组中</li>
+  <li>设置UITabBarController的子视图控制器数组</li>
+  <li>将根视图控制器设置成UITabBarController</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UITabBarController</span> <span class="o">*</span><span class="n">tabBarController</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UITabBarController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="bp">NSArray</span> <span class="o">*</span><span class="n">viewControllers</span> <span class="o">=</span> <span class="l">@[</span><span class="n">firstNav</span><span class="p">,</span> <span class="n">secondNav</span><span class="p">,</span> <span class="n">thirdNav</span><span class="p">,</span> <span class="n">fourthNav</span><span class="l">]</span><span class="p">;</span>
+<span class="n">tabBarController</span><span class="p">.</span><span class="n">viewControllers</span> <span class="o">=</span> <span class="n">viewControllers</span><span class="p">;</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="n">tabBarController</span><span class="p">;</span></code></pre></figure>
+
+<p><a name="1.2"></a></p>
+
+<h3 id="section-2">重要属性</h3>
+
+<ul>
+  <li><code>viewControllers</code> <br />
+管理的视图控制器(NSArray)</li>
+  <li><code>taBar</code> <br />
+标签栏</li>
+  <li><code>selectedIndex</code> <br />
+选中的某个tabBarItem</li>
+  <li><code>delegate</code> <br />
+代理</li>
+</ul>
+
+<p><a name="1.3">&lt;/a.</a></p>
+
+<h3 id="section-3">协议方法</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 点击某个标签时(tabBarItem)时触发该方法</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">tabBarController:</span><span class="p">(</span><span class="bp">UITabBarController</span> <span class="o">*</span><span class="p">)</span><span class="nv">tabBarController</span> <span class="nf">didSelectViewController:</span><span class="p">(</span><span class="bp">UIViewController</span> <span class="o">*</span><span class="p">)</span><span class="nv">viewController</span> <span class="p">{</span>
+	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%ld&quot;</span><span class="p">,</span> <span class="n">tabBarController</span><span class="p">.</span><span class="n">selectedIndex</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="1.4"></a></p>
+
+<h3 id="uitabbar">UITabBar</h3>
+
+<ul>
+  <li>UITabBar包含多个UITabBarItem，每一个UITabBarItem对应一个UIViewController，高度是49</li>
+  <li>系统最多只显示5个UITabBarItem，当UITabBarItem超过5个时系统会自动增加一个<code>更多</code>按钮，点击更多按钮时没有在底部出现的按钮会以列表的形式显示出来</li>
+</ul>
+
+<h4 id="section-4">重要属性</h4>
+
+<ul>
+  <li><code>tintColor</code> <br />
+设置tabBar选中的颜色</li>
+  <li><code>barTintColor</code> <br />
+设置tabBar的背景颜色</li>
+  <li>translucent <br />
+是否半透明，默认是YES</li>
+</ul>
+
+<p><a name="1.5"></a></p>
+
+<h3 id="uitabbaritem">UITabBarItem</h3>
+
+<ul>
+  <li><code>UITabBarItem</code>可以通过属性<code>title</code>、<code>badgeValue</code>设置标题及提示</li>
+  <li>可以使用系统样式创建UITabBarItem</li>
+</ul>
+
+<h4 id="section-5">图片处理</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 未选中时的图片</span>
+<span class="bp">UIImage</span> <span class="o">*</span><span class="n">normalImage</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;normal.png&quot;</span><span class="p">];</span>
+<span class="c1">// 图片不被渲染，保持图片本身的样子</span>
+<span class="n">normalImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">normalImage</span> <span class="nl">imageWithRenderingMode</span><span class="p">:</span><span class="n">UIImageRenderingModeAlwaysOriginal</span><span class="p">];</span>
+<span class="c1">// 选中时的图片</span>
+<span class="bp">UIImage</span> <span class="o">*</span><span class="n">selectedImage</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;selected.png&quot;</span><span class="p">];</span>
+<span class="n">selectedImage</span> <span class="o">=</span> <span class="p">[</span><span class="n">selectedImage</span> <span class="nl">imagewithRenderingNode</span><span class="p">:</span><span class="n">UIImageRenderingModeAlwaysOriginal</span><span class="p">];</span></code></pre></figure>
+
+<p><a name="1.6"></a></p>
+
+<h3 id="uiappearance">UIAppearance</h3>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIViewController%E4%B9%8BUITabBarController" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIViewController%E4%B9%8BUITabBarController" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIViewController%E4%B9%8BUITabBarController" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIViewController%E4%B9%8BUITabBarController" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIViewController%E4%B9%8BUITabBarController" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

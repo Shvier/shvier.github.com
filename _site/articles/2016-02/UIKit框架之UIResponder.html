@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIKit框架之UIResponder</title>
+  <meta name="description" content="目录  MVC  UIView          alpha      backgroundColor      bounds      center      frame      transform        UIViewController          管理视图                  ...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIResponder">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIKit框架之UIResponder">UIKit框架之UIResponder</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        9 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    1 min read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+
+<ul>
+  <li><a href="#1">MVC</a></li>
+  <li><a href="#2">UIView</a>
+    <ul>
+      <li><a href="#2.1">alpha</a></li>
+      <li><a href="#2.2">backgroundColor</a></li>
+      <li><a href="#2.3">bounds</a></li>
+      <li><a href="#2.4">center</a></li>
+      <li><a href="#2.5">frame</a></li>
+      <li><a href="#2.6">transform</a></li>
+    </ul>
+  </li>
+  <li><a href="#3">UIViewController</a>
+    <ul>
+      <li><a href="#3.1">管理视图</a>
+        <ul>
+          <li><a href="#3.1.1">isViewLoaded</a></li>
+          <li><a href="#3.1.2">loadView</a></li>
+          <li><a href="#3.1.3">viewDidLoad</a></li>
+        </ul>
+      </li>
+      <li><a href="#3.2">视图间跳转</a>
+        <ul>
+          <li><a href="#3.2.1">presentViewController: animated: completion:</a></li>
+          <li><a href="#3.2.2">dismissViewControllerAnimated: completion:</a></li>
+        </ul>
+      </li>
+      <li><a href="#3.3">响应视图事件</a>
+        <ul>
+          <li><a href="#3.3.1">viewWillAppear:</a></li>
+          <li><a href="#3.3.2">viewDidAppear:</a></li>
+          <li><a href="#3.3.3">viewWillDisappear:</a></li>
+          <li><a href="#3.3.4">viewDidDisappaer:</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h1 id="mvc">MVC</h1>
+<p><code>UIResponder</code>下有两个非常重要的子类：<code>UIView</code>和<code>UIViewController</code>。iOS开发中的MVC也由此而来，<code>UIView</code>主要负责界面的展现，<code>UIViewController</code>用来负责界面的跳转和数据呈现。</p>
+
+<p><a name="2"></a></p>
+
+<h1 id="uiview">UIView</h1>
+
+<p>在iOS中，所有展示的控件都继承自<code>UIView</code>。 <br />
+<code>UIView</code>具有以下重要属性：</p>
+
+<ul>
+  <li><strong>alpha</strong></li>
+  <li><strong>backgroundColor</strong></li>
+  <li><strong>bounds</strong></li>
+  <li><strong>center</strong></li>
+  <li><strong>frame</strong></li>
+  <li><strong>transform</strong></li>
+</ul>
+
+<p><a name="2.1"></a></p>
+
+<h3 id="alpha">alpha</h3>
+
+<p>UIView的不透明度，设置该属性可以改变UIView显示的透明程度。</p>
+
+<p><a name="2.2"></a></p>
+
+<h3 id="backgroundcolor">backgroundColor</h3>
+
+<p>UIView的背景颜色，设置该属性可以改变UIView的背景颜色。</p>
+
+<p><a name="2.3"></a></p>
+
+<h3 id="bounds">bounds</h3>
+
+<p>UIView相对自身坐标系的位置以及大小。</p>
+
+<p><a name="2.4"></a></p>
+
+<h3 id="center">center</h3>
+
+<p>UIView中心点的位置，设置该点<code>(CGPoint类型)</code>可以设置UIView的中心位置。</p>
+
+<p><a name="2.5"></a></p>
+
+<h3 id="frame">frame</h3>
+
+<p>UIView相对父视图坐标系的位置以及大小。</p>
+
+<p><a name="2.6"></a></p>
+
+<h3 id="transform">transform</h3>
+
+<p><code>transform</code>是UIView的一个重要属性，它在矩阵层面上改变UIView的显示状态，能实现UIView的缩放、旋转、平移等功能。</p>
+
+<ul>
+  <li><strong><code>CGAffineTransformMakeTranslation</code></strong></li>
+  <li><strong><code>CGAffineTransformMakeScale</code></strong></li>
+  <li><strong><code>CGAffineTransformMakeRotation</code></strong></li>
+</ul>
+
+<p><a name="3"></a></p>
+
+<h1 id="uiviewcontroller">UIViewController</h1>
+
+<p>在iOS中，<code>UIViewController</code>主要用来处理界面间的跳转和数据的处理。 <br />
+<code>UIViewController</code>具有以下重要方法：</p>
+
+<ul>
+  <li><strong>管理视图</strong>
+    <ul>
+      <li><strong><code>isViewLoaded</code></strong></li>
+      <li><strong><code>loadView</code></strong></li>
+      <li><strong><code>viewDidLoad</code></strong></li>
+    </ul>
+  </li>
+  <li><strong>视图间跳转</strong>
+    <ul>
+      <li><strong><code>presentViewController: animated: completion:</code></strong></li>
+      <li><strong><code>dismissViewControllerAnimated: completion:</code></strong></li>
+    </ul>
+  </li>
+  <li><strong>响应视图事件</strong>
+    <ul>
+      <li><strong><code>viewWillAppear:</code></strong></li>
+      <li><strong><code>viewDidAppear:</code></strong></li>
+      <li><strong><code>viewWillDisappear:</code></strong></li>
+      <li><strong><code>viewDidDisappear:</code></strong></li>
+    </ul>
+  </li>
+  <li><strong>编辑状态</strong>
+    <ul>
+      <li><strong><code>setEditing: animated:</code></strong></li>
+      <li><strong><code>editButtonItem</code></strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="3.1"></a></p>
+
+<h3 id="section-1">管理视图</h3>
+
+<p><a name="3.1.1"></a></p>
+
+<h4 id="isviewloaded">isViewLoaded</h4>
+
+<p>当视图已经载入到内存时执行此方法，会返回一个<code>BOOL</code>类型的变量来告诉系统视图已经载入到内存中。</p>
+
+<p><a name="3.1.2"></a></p>
+
+<h4 id="loadview">loadView</h4>
+
+<p>当视图加载其内容但是这些内容还没有被载入到内存中时执行此方法，但是官方文档表示不要直接执行此方法，如果需要加载视图内容、设置属性，在<strong><code>viewDidLoad</code></strong>方法中实现。</p>
+
+<p><a name="3.1.3"></a></p>
+
+<h4 id="viewdidload">viewDidLoad</h4>
+
+<p>当视图上内容已经加载到内存中时执行此方法。</p>
+
+<p><a name="3.2"></a></p>
+
+<h3 id="section-2">视图间跳转</h3>
+
+<p><a name="3.2.1"></a></p>
+
+<h4 id="presentviewcontroller-animated-completion">presentViewController: animated: completion:</h4>
+
+<p>用执行该方法的视图控制器跳转到作为参数的视图控制器，<code>animated:</code>表示是否使用跳转动画，<code>completion:</code>表示跳转完成后执行的操作。</p>
+
+<p><a name="3.2.2"></a></p>
+
+<h4 id="dismissviewcontrolleranimated-completion">dismissViewControllerAnimated: completion:</h4>
+
+<p>将目前的视图控制器返回到跳转来的视图控制器，换句话说，该方法是<strong><code>presentViewController: animated: completion:</code></strong>的逆操作，<code>completion:</code>依然表示完成后进行的操作。</p>
+
+<p><a name="3.3"></a></p>
+
+<h3 id="section-3">响应视图事件</h3>
+
+<p><a name="3.3.1"></a></p>
+
+<h4 id="viewwillappear">viewWillAppear:</h4>
+
+<p>前面说过，<strong><code>viewDidLoad</code></strong>用来加载视图内容，而如果当我们从一个视图返回到一个视图时是不会执行<strong><code>viewDidLoad</code></strong>方法的，所以需要用该方法来执行加载操作。该方法表示视图将要推出时执行的操作。</p>
+
+<p><a name="3.3.2"></a></p>
+
+<h4 id="viewdidappear">viewDidAppear:</h4>
+
+<p>该方法紧接上一步操作，表示视图完全推出后的需要执行的操作。</p>
+
+<p><a name="3.3.3"></a></p>
+
+<h4 id="viewwilldisappear">viewWillDisappear:</h4>
+
+<p>该方法是上述过程的逆操作，表示视图将要跳转到另一个视图时执行的操作。</p>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIResponder" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIResponder" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIResponder" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIResponder" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIResponder" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

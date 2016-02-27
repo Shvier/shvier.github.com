@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIKit框架之UIGestureRecognizer</title>
+  <meta name="description" content="目录  响应者链  使用手势  UILongPressGestureRecognizer  UIPanGestureRecognizer  UIPinchGestureRecognizer  UIRotationGestureRecognizer  UIScreenEdgePanGestureRecognizer...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIGestureRecognizer">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIKit框架之UIGestureRecognizer">UIKit框架之UIGestureRecognizer</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        10 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    4 mins read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+
+<ul>
+  <li><a href="#1">响应者链</a></li>
+  <li><a href="#2">使用手势</a></li>
+  <li><a href="#3">UILongPressGestureRecognizer</a></li>
+  <li><a href="#4">UIPanGestureRecognizer</a></li>
+  <li><a href="#5">UIPinchGestureRecognizer</a></li>
+  <li><a href="#6">UIRotationGestureRecognizer</a></li>
+  <li><a href="#7">UIScreenEdgePanGestureRecognizer</a></li>
+  <li><a href="#8">UISwipeGestureRecognizer</a></li>
+  <li><a href="#9">UITapGestureRecognizer</a></li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h3 id="section-1">响应者链</h3>
+
+<p>iOS中所有能响应事件(触摸、晃动、远程事件)的对象都是响应者。 <br />
+当硬件检测到触摸操作时，会将信息交给<code>UIApplication</code>，按<code>UIApplaction</code>-&gt;<code>window</code>-&gt;<code>viewController</code>-&gt;<code>view</code>-&gt;<code>所有子视图</code>的顺序开始检测，而处理触摸事件时则从相反的方向去处理，一旦有某一个环节无法响应，那么丢弃该次触摸操作。涉及到以下方法：</p>
+
+<ul>
+  <li><strong><code>touchesBegan: withEvent:</code></strong></li>
+  <li><strong><code>touchesMoved: withEvent:</code></strong></li>
+  <li><strong><code>touchesEnded: withEvent:</code></strong></li>
+  <li><strong><code>touchesCancelled: withEvent:</code></strong></li>
+</ul>
+
+<p>因此，可以使用<code>userInteractionEnabled</code>来控制某个控件是否可以响应事件。</p>
+
+<p><a name="2"></a></p>
+
+<h3 id="section-2">使用手势</h3>
+
+<ol>
+  <li>创建满足需求的手势，在创建时关联手势触发时的方法</li>
+  <li>配置手势的相关属性</li>
+  <li>将手势添加到需要执行操作的视图上面</li>
+  <li>实现手势方法，当触摸发生，手势识别器识别到相对应的触摸时，就会执行关联方法</li>
+</ol>
+
+<p><a name="3"></a></p>
+
+<h3 id="uilongpressgesturerecognizer">UILongPressGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UILongPressGestureRecognizer</span> <span class="o">*</span><span class="n">longPress</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UILongPressGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">longPressAction</span><span class="p">:)];</span>
+<span class="c1">//长按手势触发的最短时间，默认是0.5</span>
+<span class="n">longPress</span><span class="p">.</span><span class="n">minimunPressDuration</span> <span class="o">=</span> <span class="mf">3.0</span><span class="p">;</span>
+<span class="c1">//添加长按手势</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">longPress</span><span class="p">];</span></code></pre></figure>
+
+<p><a name="4"></a></p>
+
+<h3 id="uipangesturerecognizer">UIPanGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">//设置平移手势</span>
+<span class="bp">UIPanGestureRecognizer</span> <span class="o">*</span><span class="n">pan</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIPanGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">panAction</span><span class="p">:)];</span>
+<span class="c1">//添加平移手势</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">pan</span><span class="p">];</span>
+
+<span class="c1">//设置平移手势事件</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">panAction:</span><span class="p">(</span><span class="bp">UIPanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">pan</span> <span class="p">{</span>
+	<span class="c1">//获取要进行平移的视图</span>
+	<span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span>
+	<span class="c1">//获取平移点的位置</span>
+	<span class="bp">CGPoint</span> <span class="n">point</span> <span class="o">=</span> <span class="p">[</span><span class="n">pan</span> <span class="nl">translationInView</span><span class="p">:</span><span class="n">view</span><span class="p">];</span>
+	<span class="c1">//改变视图的位置属性</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformTranslate</span><span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">point</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">point</span><span class="p">.</span><span class="n">y</span><span class="p">);</span>
+	<span class="c1">//平移后同样需要重置</span>
+	<span class="p">[</span><span class="n">pan</span> <span class="nl">setTranslation</span><span class="p">:</span><span class="n">CGPointZero</span> <span class="nl">inView</span><span class="p">:</span><span class="n">view</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="5"></a></p>
+
+<h3 id="uipinchgesturerecognizer">UIPinchGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">//设置缩放手势</span>
+<span class="bp">UIPinchGestureRecognizer</span> <span class="o">*</span><span class="n">pinch</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIPinchGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">pinchAction</span><span class="p">:)];</span>
+<span class="c1">//添加缩放手势</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">pinch</span><span class="p">];</span>
+
+<span class="c1">//设置缩放手势事件</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">pinchAction:</span><span class="p">(</span><span class="bp">UIPinchGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">pinch</span> <span class="p">{</span>
+	<span class="c1">//获取要进行缩放的视图</span>
+	<span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span>
+	<span class="c1">//改变view的形变属性</span>
+	<span class="c1">//第一个参数是需要发生形变的transform，第二个参数是x方向的缩放规模，第三个参数是y方向的缩放规模</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformScale</span><span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">pinch</span><span class="p">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">pinch</span><span class="p">.</span><span class="n">scale</span><span class="p">);</span>
+	<span class="c1">//在完成一次缩放后必须把缩放值重置，不然缩放的大小会累加</span>
+	<span class="n">pinch</span><span class="p">.</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="c1">//或者也可以使用这种方法</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransfromMakeScale</span><span class="p">(</span><span class="n">pinch</span><span class="p">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">pinch</span><span class="p">.</span><span class="n">scale</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="6"></a></p>
+
+<h3 id="uirotationgesturerecognizer">UIRotationGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">//设置选择手势</span>
+<span class="bp">UIRotationGestureRecognizer</span> <span class="o">*</span><span class="n">rotate</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">rotateAction</span><span class="p">:)];</span>
+<span class="c1">//添加缩放手势</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">rotate</span><span class="p">];</span>
+
+<span class="c1">//设置旋转手势事件</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">rotateAction:</span><span class="p">(</span><span class="bp">UIRotationGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">rotate</span> <span class="p">{</span>
+	<span class="c1">//获取需要进行旋转的视图</span>
+	<span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span>
+	<span class="c1">//改变view的旋转属性</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformRotate</span><span class="p">(</span><span class="n">view</span><span class="p">.</span><span class="n">transform</span><span class="p">,</span> <span class="n">rotate</span><span class="p">.</span><span class="n">rotation</span><span class="p">);</span>
+	<span class="c1">//与缩放手势一样，完成一次旋转后同样需要把旋转规模重置</span>
+	<span class="n">rotate</span><span class="p">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="c1">//这种旋转方式会回弹</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformMakeRotation</span><span class="p">(</span><span class="n">rotate</span><span class="p">.</span><span class="n">rotation</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="7"></a></p>
+
+<h3 id="uiscreenedgepangesturerecognizer">UIScreenEdgePanGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">//设置屏幕边缘手势</span>
+<span class="bp">UIScreenEdgePanGestureRecognizer</span> <span class="o">*</span><span class="n">edge</span> <span class="o">=</span>
+    <span class="p">[[</span><span class="bp">UIScreenEdgePanGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">edgeAction</span><span class="p">:)];</span>
+<span class="c1">//设置向左滑动显示</span>
+<span class="n">edge</span><span class="p">.</span><span class="n">edges</span> <span class="o">=</span> <span class="n">UIRectEdgeLeft</span><span class="p">;</span>
+<span class="c1">//添加屏幕边缘手势</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">edge</span><span class="p">];</span>
+
+<span class="c1">//设置屏幕边缘事件</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">handleLeftEdgeGesture:</span><span class="p">(</span><span class="bp">UIScreenEdgePanGestureRecognizer</span> <span class="o">*</span><span class="p">)</span><span class="nv">gesture</span> <span class="p">{</span>
+    <span class="c1">// 获取到当前被触摸的view</span>
+    <span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span> <span class="o">=</span> <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">hitTest</span><span class="p">:[</span><span class="n">gesture</span> <span class="nl">locationInView</span><span class="p">:</span><span class="n">gesture</span><span class="p">.</span><span class="n">view</span><span class="p">]</span> <span class="nl">withEvent</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">UIGestureRecognizerStateBegan</span> <span class="o">==</span> <span class="n">gesture</span><span class="p">.</span><span class="n">state</span> <span class="o">||</span> <span class="n">UIGestureRecognizerStateChanged</span> <span class="o">==</span> <span class="n">gesture</span><span class="p">.</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//根据被触摸手势的view计算得出坐标值</span>
+        <span class="bp">CGPoint</span> <span class="n">translation</span> <span class="o">=</span> <span class="p">[</span><span class="n">gesture</span> <span class="nl">translationInView</span><span class="p">:</span><span class="n">gesture</span><span class="p">.</span><span class="n">view</span><span class="p">];</span>
+        <span class="c1">//进行设置</span>
+        <span class="n">view</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">_centerX</span> <span class="o">+</span> <span class="n">translation</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">_centerY</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//恢复设置</span>
+        <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mf">.3</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span><span class="n">view</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">_centerX</span><span class="p">,</span> <span class="n">_centerY</span><span class="p">);}];</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="8"></a></p>
+
+<h3 id="uiswipegesturerecognizer">UISwipeGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UISwipeGestureRecognizer</span> <span class="o">*</span><span class="n">swipe</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UISwipeGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWith</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">swipeAction</span><span class="p">:)];</span>
+<span class="c1">//手势方向</span>
+<span class="n">swipe</span><span class="p">.</span><span class="n">direction</span> <span class="o">=</span> <span class="n">UISwipeGestureRecognizerDirectionDown</span><span class="p">;</span>
+<span class="c1">//添加轻扫手势</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">swipe</span><span class="p">];</span></code></pre></figure>
+
+<p><a name="9"></a></p>
+
+<h3 id="uitapgesturerecognizer">UITapGestureRecognizer</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UITapGestureRecognizer</span> <span class="o">*</span><span class="n">tap</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UITapGestureRecognizer</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">tapAction</span><span class="p">:)];</span>
+<span class="c1">//1.触发手势的手指个数</span>
+<span class="n">tap</span><span class="p">.</span><span class="n">numberOfTouchesRequired</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="c1">//2.触发手势的轻拍次数</span>
+<span class="n">tap</span><span class="p">.</span><span class="n">numberOfTapsRequired</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">//3.添加轻拍手势</span>
+<span class="p">[</span><span class="o">&lt;</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">view</span><span class="o">&gt;</span> <span class="nl">addGestureRecognizer</span><span class="p">:</span><span class="n">tap</span><span class="p">];</span></code></pre></figure>
+
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIGestureRecognizer" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIGestureRecognizer" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIGestureRecognizer" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIGestureRecognizer" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIKit%E6%A1%86%E6%9E%B6%E4%B9%8BUIGestureRecognizer" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIView之UIScrollView</title>
+  <meta name="description" content="目录  UIScrollView概述          初始化      重要属性      协议方法      与UIPageControl结合使用      UIScrollView概述  UIScrollView是UIView的子类，  UIScrollView是所有滚动视图的基类(UITableView，...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIView%E4%B9%8BUIScrollView">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIView之UIScrollView">UIView之UIScrollView</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        11 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    4 mins read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+
+<ul>
+  <li><a href="#1">UIScrollView概述</a>
+    <ul>
+      <li><a href="#1.1">初始化</a></li>
+      <li><a href="#1.2">重要属性</a></li>
+      <li><a href="#1.3">协议方法</a></li>
+      <li><a href="#1.4">与UIPageControl结合使用</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h1 id="uiscrollview">UIScrollView概述</h1>
+
+<ul>
+  <li><code>UIScrollView</code>是UIView的子类，</li>
+  <li><code>UIScrollView</code>是<code>所有滚动视图的基类</code>(UITableView，UICollectionView)</li>
+  <li><code>UIScrollView</code>主要使用在滚动头条、相册等常见的功能里</li>
+</ul>
+
+<p><a name="1.1"></a></p>
+
+<h3 id="section-1">初始化</h3>
+
+<ol>
+  <li>创建一个任意尺寸的UIScrollView</li>
+  <li>设置背景颜色</li>
+  <li>把UIScrollView放到self.view上显示</li>
+  <li>内存管理</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 获取屏幕的宽高</span>
+<span class="cp">#define kWidth self.view.frame.size.width</span>
+<span class="cp">#define kHeight self.view.frame.size.height</span>
+
+<span class="c1">// 创建一个和屏幕等尺寸的UIScrollView</span>
+<span class="bp">UIScrollView</span> <span class="o">*</span><span class="n">scrollView</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIScrollView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">kWidth</span><span class="p">,</span> <span class="n">kHeight</span><span class="p">)];</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">orangeColor</span><span class="p">];</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">scrollView</span><span class="p">];</span>
+<span class="p">[</span><span class="n">scrollView</span> <span class="k">release</span><span class="p">];</span></code></pre></figure>
+
+<p><code>UIScrollView</code>虽然创建出来了，但是不具备滚动功能，所以还要对其他一些重要的属性进行设置。</p>
+
+<p><a name="1.2"></a></p>
+
+<h3 id="section-2">重要属性</h3>
+
+<h4 id="contentsize">contentSize(滚动范围)</h4>
+
+<ul>
+  <li><strong>控制滚动范围</strong> <br />
+<code>contentSize</code>有两个参数：<code>width</code>和<code>height</code>，分别表示横向滚动范围和纵向滚动范围。通过该属性，可以设置滚动视图的滚动范围。比如让其可以横向滚动四个屏幕宽度</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">kWidth</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre></figure>
+
+<p>又或是让其纵向滚动五个屏幕高度</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">scrollView</span><span class="p">.</span><span class="n">contentSize</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">kHeight</span> <span class="o">*</span> <span class="mi">5</span><span class="p">);</span></code></pre></figure>
+
+<p>设置好滚动范围后，发现界面依然是空白的，所以添加几张图片吧:)</p>
+
+<h4 id="section-3">添加滚动图片</h4>
+
+<p>将图片命名为1.jpg，2.jpg…的形式放在工程目录下(图片张数为n)</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">for</span> <span class="p">(</span><span class="bp">NSInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+	<span class="bp">UIImageView</span> <span class="o">*</span><span class="n">imageView</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIImageView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">((</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">kWidth</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">kWidth</span><span class="p">,</span> <span class="n">kHeight</span><span class="p">];</span>
+	<span class="n">imageView</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:[</span><span class="bp">NSString</span> <span class="nl">stringWithFormat</span><span class="p">:</span><span class="s">@&quot;%ld.jpg&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">]];</span>
+	<span class="p">[</span><span class="n">scrollView</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">imageView</span><span class="p">];</span>
+	<span class="p">[</span><span class="n">imageView</span> <span class="k">release</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>如果想默认显示第二张图片(或者第n张图片)，如何去做？</p>
+
+<h4 id="contentoffset">contentOffset偏移量</h4>
+
+<ul>
+  <li>通过<code>contentOffset</code>可以显示指定偏移量的视图</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 设置默认显示第二张图片</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">contentOffset</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">kWidth</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre></figure>
+
+<p>移动过程中我们发现，当移动停止时，图片也停在了一半，这样非常难看，那么如何使其一页一页的滚动呢？</p>
+
+<h4 id="pagingenabled">pagingEnabled整页滚动</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">scrollView</span><span class="p">.</span><span class="n">pagingEnabled</span> <span class="o">=</span> <span class="nb">YES</span><span class="o">:</span></code></pre></figure>
+
+<h4 id="section-4">不显示滚动条</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 不显示水平滚动条</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">showHorizontalScrollIndicator</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+<span class="c1">// 不显示垂直滚动条</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">showVerticalScrollIndicator</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span></code></pre></figure>
+
+<h4 id="bounces">bounces回弹效果</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 关闭回弹效果</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">bounces</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span></code></pre></figure>
+
+<p><a name="1.3"></a></p>
+
+<h3 id="section-5">协议方法</h3>
+
+<p><code>UIScrollView</code>的协议方法分为两类：</p>
+
+<ul>
+  <li>监控滚动状态</li>
+  <li>控制视图缩放</li>
+</ul>
+
+<h4 id="section-6">监控滚动状态</h4>
+
+<ul>
+  <li><strong><code>- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView</code></strong> <br />
+开始拖拽时触发此方法</li>
+  <li><strong><code>- (void)scrollViewDidScroll:(UIScrollView *)scrollView</code></strong> <br />
+拖拽过程中触发此方法</li>
+  <li><strong><code>- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView</code></strong> <br />
+结束拖拽时触发此方法</li>
+  <li><strong><code>- (void)scrollViewBeginDecelerating:(UIScrollView *)scrollView</code></strong> <br />
+滚动减速时触发此方法</li>
+  <li><strong><code>- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView</code></strong> <br />
+滚动彻底停止时触发此方法</li>
+</ul>
+
+<h4 id="section-7">控制视图缩放</h4>
+
+<p>在查看控制视图缩放的协议之前，先看看有关UIScrollView缩放的属性：</p>
+
+<ul>
+  <li><code>maximumZoomScale</code> <br />
+设置最大的缩放比例</li>
+  <li><code>minimumZoomScale</code> <br />
+设置最小的缩放比例</li>
+  <li><code>zoomScale</code> <br />
+设置当前的比例</li>
+</ul>
+
+<p>在视图控制器的<code>viewDidLoad</code>方法里设置好最大和最小的缩放比例后，即可对scrollView进行缩放操作</p>
+
+<ul>
+  <li><strong><code>(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView</code></strong></li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 设置最大缩放比例</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">maximumZoomScale</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">// 设置最小缩放比例</span>
+<span class="n">scrollView</span><span class="p">.</span><span class="n">minimumZoomScale</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">;</span>
+
+<span class="c1">// 指定需要缩放的视图</span>
+<span class="p">-</span> <span class="p">(</span><span class="bp">UIView</span> <span class="o">*</span><span class="p">)</span><span class="nf">viewForZoomingInScrollView:</span><span class="p">(</span><span class="bp">UIScrollView</span> <span class="o">*</span><span class="p">)</span><span class="nv">scrollView</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="p">[</span><span class="n">scrollView</span><span class="p">.</span><span class="n">subViews</span> <span class="n">firstObject</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>但是进行缩放后发现，其他视图好像也发生了变化，这是因为协议方法不仅会改变视图的尺寸，同样会改变scrollView的contentSize属性，所以在构建滚动视图时，应该把一张大的scrollView作为画册，另外给小的scrollView设置一个imageView，作为缩放的图片。 <br />
+即大的scrollView负责滚动，小的scrollView负责缩放。</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 小的scrollView上三个子视图，一个是添加到上面的imageView，另外两个是水平和垂直两个滚动条，所以需要找到imageView，进行缩放操作</span>
+<span class="p">-</span> <span class="p">(</span><span class="bp">UIView</span> <span class="o">*</span><span class="p">)</span><span class="nf">viewForZoomingInScrollView:</span><span class="p">(</span><span class="bp">UIScrollView</span> <span class="o">*</span><span class="p">)</span><span class="nv">scrollView</span> <span class="p">{</span>
+	<span class="bp">UIImageView</span> <span class="o">*</span><span class="n">imageView</span> <span class="o">=</span> <span class="p">[</span><span class="n">scrollView</span><span class="p">.</span><span class="n">subviews</span> <span class="nl">objectAtIndex</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+	<span class="k">return</span> <span class="n">imageView</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// 在滚动到下一张视图时，恢复到原有尺寸</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scrollViewDidEndDecelerating:</span><span class="p">(</span><span class="bp">UIScrollView</span> <span class="o">*</span><span class="p">)</span><span class="nv">scrollView</span> <span class="p">{</span>
+	<span class="c1">// 从大的scrollView找到小的scrollView</span>
+	<span class="k">for</span> <span class="p">(</span><span class="bp">UIScrollView</span> <span class="o">*</span><span class="n">smallScrollView</span> <span class="k">in</span> <span class="n">scrollView</span><span class="p">.</span><span class="n">subviews</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">([</span><span class="n">smallScrollView</span> <span class="nl">isKindOfClass</span><span class="p">:[</span><span class="bp">UIScrollView</span> <span class="k">class</span><span class="p">]])</span> <span class="p">{</span>
+			<span class="c1">// 把视图尺寸恢复到原有尺寸</span>
+			<span class="n">smallScrollView</span><span class="p">.</span><span class="n">zoomScale</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a name="1.4"></a></p>
+
+<h3 id="uipagecontrol">与UIPageControl结合使用</h3>
+
+<ul>
+  <li>可以通过UIPageControl的点击事件和UIScrollView的偏移量实现二者的关联使用</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="n">page</span> <span class="nl">addTarget</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">pageControlAction</span><span class="p">:)</span> <span class="nl">forControlEvents</span><span class="p">:</span><span class="n">UIControlEventValueChanged</span><span class="p">];</span>
+<span class="c1">// 在pageControl的点击⽅方法⾥里对ScrollView进⾏行关联,通过操作scrollView的偏移量ContentOffset进⾏行视图上得切换</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">pageControlAction:</span><span class="p">(</span><span class="bp">UIPageControl</span> <span class="o">*</span><span class="p">)</span><span class="nv">page</span> <span class="p">{</span>
+	<span class="c1">// 通过tag值先找到要操作的scrollView对象</span>
+	<span class="bp">UIScrollView</span> <span class="o">*</span><span class="n">scrollView</span> <span class="o">=</span> <span class="p">(</span><span class="bp">UIScrollView</span> <span class="o">*</span><span class="p">)[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">viewWithTag</span><span class="p">:</span><span class="mi">101</span><span class="p">];</span>
+	<span class="c1">// 根据pageControl当前的页数计算scrollView当前的偏移量</span>
+	<span class="p">[</span><span class="n">scrollView</span> <span class="nl">setContentOffset</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="n">currentPage</span> <span class="o">*</span> <span class="n">kWidth</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="nl">animated</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+<span class="p">}</span>
+
+<span class="c1">// 实现scrollView对pageControl的操作</span>
+<span class="c1">//先找到scrollView的滚动结束触发的协议⽅方法</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">scrollViewDidEndDecelerating:</span><span class="p">(</span><span class="bp">UIScrollView</span> <span class="o">*</span><span class="p">)</span><span class="nv">scrollView</span> <span class="p">{</span>
+	<span class="c1">// 先通过tag值找到要操作的视图</span>
+	<span class="bp">UIPageControl</span> <span class="o">*</span><span class="n">page</span> <span class="o">=</span> <span class="p">(</span><span class="bp">UIPageControl</span> <span class="o">*</span><span class="p">)[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">viewWithTag</span><span class="p">:</span><span class="mi">102</span><span class="p">];</span>
+	<span class="c1">// 根据当前scrollView的偏移量计算pageControl应显示的页数</span>
+	<span class="n">page</span><span class="p">.</span><span class="n">currentPage</span> <span class="o">=</span> <span class="n">scrollView</span><span class="p">.</span><span class="n">contentOffset</span><span class="p">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">kWidth</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIView%E4%B9%8BUIScrollView" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIView%E4%B9%8BUIScrollView" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIView%E4%B9%8BUIScrollView" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIView%E4%B9%8BUIScrollView" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIView%E4%B9%8BUIScrollView" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

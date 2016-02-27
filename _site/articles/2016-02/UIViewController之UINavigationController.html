@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIViewController之UINavigationController</title>
+  <meta name="description" content="目录  UINavigationController概述          初始化      UINavigationBar      UINavigationItem      UIBarButtonItem      页面跳转      UINavigationController概述  UINavigati...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIViewController%E4%B9%8BUINavigationController">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIViewController之UINavigationController">UIViewController之UINavigationController</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        12 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    3 mins read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+
+<ul>
+  <li><a href="#1">UINavigationController概述</a>
+    <ul>
+      <li><a href="#1.1">初始化</a></li>
+      <li><a href="#1.2">UINavigationBar</a></li>
+      <li><a href="#1.3">UINavigationItem</a></li>
+      <li><a href="#1.4">UIBarButtonItem</a></li>
+      <li><a href="#1.5">页面跳转</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h1 id="uinavigationcontroller">UINavigationController概述</h1>
+<ul>
+  <li><code>UINavigationController</code>导航控制器，主要用来管理其他有层级递进关系的视图控制器</li>
+  <li>继承于UIViewController，<strong>以栈的方式管理所控制的其它视图控制器</strong>，被称为导航控制器的根视图控制器</li>
+  <li>任何继承自UIViewController的类都可以作为根视图控制器</li>
+</ul>
+
+<p><a name="1.1">&lt;/a.</a></p>
+
+<h3 id="section-1">初始化</h3>
+
+<ol>
+  <li>创建视图控制器</li>
+  <li>创建导航控制器，并把刚创建的视图控制器作为根视图控制器</li>
+  <li>设置导航控制器为window的根视图控制器</li>
+  <li>内存管理</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">RootViewController</span> <span class="o">*</span><span class="n">rootVC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">RootViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+<span class="bp">UINavigationController</span> <span class="o">*</span><span class="n">naVC</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UINavigationController</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithRootViewController</span><span class="p">:</span><span class="n">rootVC</span><span class="p">];</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="nl">naVC</span><span class="p">:</span>
+<span class="p">[</span><span class="n">rootVC</span> <span class="k">release</span><span class="p">];</span>
+<span class="p">[</span><span class="n">naVC</span> <span class="k">release</span><span class="p">];</span></code></pre></figure>
+
+<p><a name="1.2"></a></p>
+
+<h3 id="uinavigationbar">UINavigationBar</h3>
+
+<p><code>UINavigationBar</code>(导航栏)上的设置范围两部分，一是导航栏上的各种导航部件(UINavigationItem)，二为导航栏自身的相关设置</p>
+
+<ul>
+  <li><code>UINavigationBar</code>在iOS 7之后默认是半透明的，iOS 7之前默认是不透明的</li>
+  <li>竖屏下默认高度是44，横屏下默认高度是32</li>
+  <li>iOS 7之后，UINavigationBar的背景会延伸到statusBar(状态栏)上，使得导航栏的高度仍然为44，但是显示效果为64</li>
+  <li>每个视图控制器都有一个<code>navigationItem</code>属性。<code>navigationItem</code>中设置的左按钮、右按钮、标题等，会随着控制器的显示，也显示到navigationBar上</li>
+</ul>
+
+<p><a name="1.3"></a></p>
+
+<h3 id="uinavigationitem">UINavigationItem</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// 导航栏标题</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">@&quot;Title&quot;</span><span class="p">;</span>
+<span class="c1">// self.title会同时改变导航栏的标题和tabBar的标题，可以用如下方法单独操作导航栏的标题</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">title</span> <span class="o">=</span> <span class="s">@&quot;Title&quot;</span><span class="p">;</span>
+<span class="c1">// 左按钮</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">leftBarButtonItem</span> <span class="o">=</span> <span class="p">[[[</span><span class="bp">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBarButtonSystemItem</span><span class="p">:</span><span class="n">UIBarButtonSystemItemSearch</span> <span class="nl">target</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">leftAction</span><span class="p">:)]</span> <span class="n">autorelease</span><span class="p">];</span>
+<span class="c1">// 右按钮</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="p">[[[</span><span class="bp">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage</span><span class="p">:[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;next&quot;</span><span class="p">]</span> <span class="nl">style</span><span class="p">:</span><span class="n">UIBarButtonItemStylePlain</span> <span class="nl">target</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">rightAction</span><span class="p">:)]</span> <span class="n">autorelease</span><span class="p">];</span></code></pre></figure>
+
+<p><a name="1.4"></a></p>
+
+<h3 id="uibarbuttonitem">UIBarButtonItem</h3>
+
+<ul>
+  <li><code>initWithImage: Style: target: action:</code> <br />
+参数1：图片 参数2：barButtonStyle(按钮样式，枚举类型) 参数3：目标 参数4：方法</li>
+  <li><code>initWithTitle: Style: target: action:</code> <br />
+参数1：按钮文字 参数2：barButtonStyle(按钮样式，枚举类型) 参数3：目标 参数4：方法</li>
+  <li><code>initWithBarButtonSystemItem: target: action:</code> <br />
+参数1：系统按钮样式(枚举类型) 参数2：目标 参数3：方法</li>
+  <li><code>initWithCustomView:</code> <br />
+参数：自定义UIView对象</li>
+</ul>
+
+<p>其中，左右item可以指定为数组，同时显示多个按钮</p>
+
+<h4 id="section-2">多个按钮</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIBarButtonItem</span> <span class="o">*</span><span class="n">item1</span> <span class="o">=</span> <span class="p">[[[</span><span class="bp">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBarButtonSystemItem</span><span class="p">:</span><span class="n">UIBarButtonSystemAdd</span> <span class="nl">target</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">firstItemAction</span><span class="p">:)]</span> <span class="n">autorelease</span><span class="p">];</span>
+<span class="bp">UIBarButtonItem</span> <span class="o">*</span><span class="n">item2</span> <span class="o">=</span> <span class="p">[[[</span><span class="bp">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBarButtonSystemItem</span><span class="p">:</span><span class="n">UIBarButtonSystemCamera</span> <span class="nl">target</span><span class="p">:</span><span class="nb">self</span> <span class="nl">action</span><span class="p">:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">secondItemAction</span><span class="p">:)]</span> <span class="n">autorelease</span><span class="p">];</span>
+
+<span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">leftButtonItem</span> <span class="o">=</span> <span class="l">@[</span><span class="n">item1</span><span class="p">,</span> <span class="n">item2</span><span class="l">]</span><span class="p">;</span></code></pre></figure>
+
+<h4 id="section-3">标题视图</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UISegmentedControl</span> <span class="o">*</span><span class="n">seg</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UISegmentedControl</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithItems</span><span class="p">:</span><span class="l">@[</span><span class="s">@&quot;已接电话&quot;</span><span class="p">,</span> <span class="s">@&quot;未接电话&quot;</span><span class="l">]</span><span class="p">];</span>
+<span class="n">seg</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">titleView</span> <span class="o">=</span> <span class="n">seg</span><span class="p">;</span>
+<span class="p">[</span><span class="n">seg</span> <span class="k">release</span><span class="p">];</span></code></pre></figure>
+
+<h4 id="section-4">重要属性</h4>
+
+<ul>
+  <li><code>navigationBarHidden</code> <br />
+导航栏的显隐属性</li>
+  <li><code>navigationBar.barStyle</code> <br />
+导航栏样式</li>
+  <li><code>navigationBar.backgroundColor</code> <br />
+导航栏背景色</li>
+  <li><code>navigationBar.barTintColor</code> <br />
+导航栏颜色</li>
+  <li><code>navigationBar.tintColor</code> <br />
+导航栏元素颜色</li>
+  <li><code>navigationBar.translucent</code> <br />
+导航栏半透明效果(iOS 7以后，默认为YES，当半透明效果开启时，屏幕左上角为坐标原点，关闭时，导航栏左下角为坐标原点)</li>
+</ul>
+
+<p><a name="1.5"></a></p>
+
+<h3 id="section-5">页面跳转</h3>
+
+<ul>
+  <li><code>UINavigationController</code>以<strong>栈</strong>的形式管理控制器的切换，控制入栈和出栈来展示各个视图控制器</li>
+  <li><code>UINavigationController</code>的contentView始终显示的是栈顶的视图控制器</li>
+  <li><code>viewControllers</code>属性是一个可变数组，存储了栈中所有被管理的视图控制器，入栈的时候，使用<code>addObject</code>把新的视图控制器对象添加到数组末尾，出栈时使用<code>removeLastObject</code>移除数组末尾的视图控制器对象</li>
+  <li><code>navigationController属性</code>，父类中的属性，每个在栈顶的视图控制器，都能通过此属性获取自己所在的UINavigationController对象</li>
+</ul>
+
+<h4 id="section-6">推出方式</h4>
+
+<h6 id="section-7">工作原理</h6>
+
+<ul>
+  <li>先进后出，后进先出</li>
+  <li>栈顶为当前显示的视图控制器</li>
+</ul>
+
+<h6 id="section-8">入栈和出栈</h6>
+
+<ul>
+  <li><code>pushViewController: animated:</code> <br />
+进入下一视图控制器</li>
+  <li><code>popViewControllerAnimated:</code> <br />
+返回上一视图控制器</li>
+  <li><code>popToViewController: animated:</code> <br />
+返回到指定的视图控制器</li>
+  <li><code>popToRootViewController: animated:</code> <br />
+返回到根视图控制器</li>
+</ul>
+
+<h4 id="section-9">模态方式</h4>
+
+<ol>
+  <li>创建第二页对象</li>
+  <li>设置过渡动画</li>
+  <li>模态跳转</li>
+  <li>内存管理</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">next</span> <span class="p">{</span>
+	<span class="n">SecondViewController</span> <span class="o">*</span><span class="n">secondVC</span> <span class="o">=</span> <span class="p">[[</span><span class="n">SecondViewController</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+	<span class="n">secondVC</span><span class="p">.</span><span class="n">modalTransitionStyle</span> <span class="o">=</span> <span class="n">UIModalTransitionStyleCoverVertical</span><span class="p">;</span>
+	<span class="p">[</span><span class="nb">self</span> <span class="nl">presentViewController</span><span class="p">:</span><span class="n">secondVC</span> <span class="nl">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+	<span class="p">[</span><span class="n">secondVC</span> <span class="k">release</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">back</span> <span class="p">{</span>
+	<span class="p">[</span><span class="nb">self</span> <span class="nl">dismissViewControllerAnimated</span><span class="p">:</span><span class="nb">YES</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<h4 id="section-10">对比</h4>
+
+<ul>
+  <li>页面的切换方式主要分为：推出(push)和模态(modal)</li>
+  <li>推出(push)用于一系列有层级递进关系的视图跳转</li>
+  <li>模态(modal)用于单独功能页面的跳转和主要逻辑功能没有联系的跳转</li>
+</ul>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIViewController%E4%B9%8BUINavigationController" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIViewController%E4%B9%8BUINavigationController" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIViewController%E4%B9%8BUINavigationController" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIViewController%E4%B9%8BUINavigationController" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIViewController%E4%B9%8BUINavigationController" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIViewController之UIAlertController</title>
+  <meta name="description" content="UIAlertController  在iOS 8以后，UIAlertController在功能上是和UIAlertView以及UIActionSheet相同的，UIAlertController以一种模块化替换的方式来代替这两者的功能和作用。是使用对话框(alert)还是使用上拉菜单(action sheet)...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIViewController%E4%B9%8BUIAlertController">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIViewController之UIAlertController">UIViewController之UIAlertController</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        14 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    1 min read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="uialertcontroller">UIAlertController</h1>
+
+<ul>
+  <li>在iOS 8以后，<code>UIAlertController</code>在功能上是和<code>UIAlertView</code>以及<code>UIActionSheet</code>相同的，UIAlertController以一种模块化替换的方式来代替这两者的功能和作用。是使用对话框(alert)还是使用上拉菜单(action sheet)，就取决于在创建控制器时如何设置首选样式。</li>
+</ul>
+
+<h3 id="section">初始化</h3>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">UIAlertController</span> <span class="o">*</span><span class="n">alertController</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertController</span> <span class="nl">alertControllerWithTitle</span><span class="p">:</span><span class="s">@&quot;标题&quot;</span> <span class="nl">message</span><span class="p">:</span><span class="s">@&quot;这个是UIAlertController的默认样式&quot;</span> <span class="nl">preferredStyle</span><span class="p">:</span><span class="n">UIAlertControllerStyleAlert</span><span class="p">];</span></code></pre></figure>
+
+<h3 id="uialertaction">UIAlertAction</h3>
+
+<ul>
+  <li>通过创建<code>UIAlertAction的</code>实例，可以将动作按钮添加到控制器上</li>
+  <li><code>UIAlertAction</code>由标题字符串、样式以及当用户选中该动作时运行的代码块组成</li>
+  <li><code>通过UIAlertActionStyle</code>，可以选择如下三种动作样式：
+    <ul>
+      <li>常规(default)</li>
+      <li>取消(cancel)</li>
+      <li>警示(destruective)</li>
+    </ul>
+  </li>
+  <li>为了实现原来在创建UIAlertView时创建的按钮效果，只需创建这两个动作按钮并将它们添加到控制器上即可</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">UIAlertAction</span> <span class="o">*</span><span class="n">cancelAction</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertAction</span> <span class="nl">actionWithTitle</span><span class="p">:</span><span class="s">@&quot;取消&quot;</span> <span class="nl">style</span><span class="p">:</span><span class="n">UIAlertActionStyleCancel</span> <span class="nl">handler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="n">UIAlertAction</span> <span class="o">*</span><span class="n">okAction</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertAction</span> <span class="nl">actionWithTitle</span><span class="p">:</span><span class="s">@&quot;好的&quot;</span> <span class="nl">style</span><span class="p">:</span><span class="n">UIAlertActionStyleDefault</span> <span class="nl">handler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addAction</span><span class="p">:</span><span class="n">cancelAction</span><span class="p">];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addAction</span><span class="p">:</span><span class="n">okAction</span><span class="p">];</span></code></pre></figure>
+
+<p>最后，显示这个视图控制器即可</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="nb">self</span> <span class="nl">presentViewController</span><span class="p">:</span><span class="n">alertController</span> <span class="nl">animated</span><span class="p">:</span><span class="nb">YES</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span></code></pre></figure>
+
+<h3 id="section-1">文本对话框</h3>
+
+<ul>
+  <li><code>UIAlertController</code>极大的灵活性意味着不必拘泥于内置样式。以前只能在默认视图、文本框视图、密码框视图、登录和密码输入框视图中选择，现在可以对话框中添加任意数目的UITextField对象，并且可以使用所有的UITextField特性。</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">UIAlertController</span> <span class="o">*</span><span class="n">alertController</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertController</span> <span class="nl">alertControllerWithTitle</span><span class="p">:</span><span class="s">@&quot;文本对话框&quot;</span> <span class="nl">message</span><span class="p">:</span><span class="s">@&quot;登录和密码对话框示例&quot;</span> <span class="nl">preferredStyle</span><span class="p">:</span><span class="n">UIAlertControllerStyleAlert</span><span class="p">];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addTextFieldWithConfigurationHandler</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="bp">UITextField</span> <span class="o">*</span><span class="n">textField</span><span class="p">){</span>
+    <span class="n">textField</span><span class="p">.</span><span class="n">placeholder</span> <span class="o">=</span> <span class="s">@&quot;登录&quot;</span><span class="p">;</span>
+<span class="p">}];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addTextFieldWithConfigurationHandler</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="bp">UITextField</span> <span class="o">*</span><span class="n">textField</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">textField</span><span class="p">.</span><span class="n">placeholder</span> <span class="o">=</span> <span class="s">@&quot;密码&quot;</span><span class="p">;</span>
+    <span class="n">textField</span><span class="p">.</span><span class="n">secureTextEntry</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+<span class="p">}];</span></code></pre></figure>
+
+<h3 id="section-2">上拉菜单</h3>
+
+<ul>
+  <li>当需要给用户展示一系列选择的时候，上拉菜单就能够派上大用场了。和对话框不同，上拉菜单的展示形式和设备大小有关。在iPhone上（紧缩宽度），上拉菜单从屏幕底部升起。在iPad上（常规宽度），上拉菜单以弹出框的形式展现。</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">UIAlertController</span> <span class="o">*</span><span class="n">alertController</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertController</span> <span class="nl">alertControllerWithTitle</span><span class="p">:</span><span class="s">@&quot;保存或删除数据&quot;</span> <span class="nl">message</span><span class="p">:</span><span class="s">@&quot;删除数据将不可恢复&quot;</span> <span class="nl">preferredStyle</span><span class="p">:</span> <span class="n">UIAlertControllerStyleActionSheet</span><span class="p">];</span>
+<span class="n">UIAlertAction</span> <span class="o">*</span><span class="n">cancelAction</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertAction</span> <span class="nl">actionWithTitle</span><span class="p">:</span><span class="s">@&quot;取消&quot;</span> <span class="nl">style</span><span class="p">:</span><span class="n">UIAlertActionStyleCancel</span> <span class="nl">handler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="n">UIAlertAction</span> <span class="o">*</span><span class="n">deleteAction</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertAction</span> <span class="nl">actionWithTitle</span><span class="p">:</span><span class="s">@&quot;删除&quot;</span> <span class="nl">style</span><span class="p">:</span><span class="n">UIAlertActionStyleDestructive</span> <span class="nl">handler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="n">UIAlertAction</span> <span class="o">*</span><span class="n">archiveAction</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIAlertAction</span> <span class="nl">actionWithTitle</span><span class="p">:</span><span class="s">@&quot;保存&quot;</span> <span class="nl">style</span><span class="p">:</span><span class="n">UIAlertActionStyleDefault</span> <span class="nl">handler</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addAction</span><span class="p">:</span><span class="n">cancelAction</span><span class="p">];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addAction</span><span class="p">:</span><span class="n">deleteAction</span><span class="p">];</span>
+<span class="p">[</span><span class="n">alertController</span> <span class="nl">addAction</span><span class="p">:</span><span class="n">archiveAction</span><span class="p">];</span></code></pre></figure>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIViewController%E4%B9%8BUIAlertController" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIViewController%E4%B9%8BUIAlertController" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIViewController%E4%B9%8BUIAlertController" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIViewController%E4%B9%8BUIAlertController" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIViewController%E4%B9%8BUIAlertController" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

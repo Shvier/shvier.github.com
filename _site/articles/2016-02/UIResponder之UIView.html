@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>UIResponder之UIView</title>
+  <meta name="description" content="目录  UIView概述          重要属性                  alpha          center          frame          hidden          subViews          superView          tag           ...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+
+  <link rel="canonical" href="/articles/2016-02/UIResponder%E4%B9%8BUIView">
+  <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-bottom">
+  
+  <img src="/img/avatar.jpg" alt="" class="avatar">
+  
+  <a href="/" class="author_name">Shvier</a>
+  <span class="author_job">iOS & indie game Developer</span>
+  <span class="author_bio mbm">Love it, do it.</span>
+  <nav class="nav">
+    <ul class="nav-list">
+       
+      <li class="nav-item">
+        <a href="/archive/">Archive</a>
+        <span>/</span>
+      </li>
+          
+      <li class="nav-item">
+        <a href="/categories/">Categories</a>
+        <span>/</span>
+      </li>
+            
+      <li class="nav-item">
+        <a href="/tags/">Tags</a>
+      </li>
+       
+    </ul>
+  </nav>
+  <div class="social-links">
+  <ul>
+    <li><a href="mailto:Shvier@sina.com" class="social-link-item" target="_blank"><i class="fa fa-fw fa-envelope"></i></a></li>
+    <li><a href="http://twitter.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-twitter"></i></a></li>
+    <li><a href="http://facebook.com/SherlockVier#username" class="social-link-item" target="_blank"><i class="fa fa-fw fa-facebook"></i></a></li>
+    
+    
+    
+    
+    
+    <li><a href="http://github.com/Shvier" class="social-link-item" target="_blank"><i class="fa fa-fw fa-github"></i></a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    <li><a href="http://www.weibo.com/SherlockV" class="social-link-item" target="_blank"><i class="fa fa-fw fa-weibo"></i></a></li>
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <div class="back-home">
+  <a href="/">< back Home.</a>
+</div>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="UIResponder之UIView">UIResponder之UIView</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        10 FEB 2016
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    1 min read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h1 id="section">目录</h1>
+
+<ul>
+  <li><a href="#1">UIView概述</a>
+    <ul>
+      <li><a href="#1.1">重要属性</a>
+        <ul>
+          <li><a href="#1.1.1">alpha</a></li>
+          <li><a href="#1.1.2">center</a></li>
+          <li><a href="#1.1.3">frame</a></li>
+          <li><a href="#1.1.4">hidden</a></li>
+          <li><a href="#1.1.5">subViews</a></li>
+          <li><a href="#1.1.6">superView</a></li>
+          <li><a href="#1.1.7">tag</a></li>
+        </ul>
+      </li>
+      <li><a href="#1.2">重要方法</a>
+        <ul>
+          <li><a href="#1.2.1">addSubView:</a></li>
+          <li><a href="#1.2.2">insertSubview: aboveSubview:</a></li>
+          <li><a href="#1.2.3">insertSubview: atIndex:</a></li>
+          <li><a href="#1.2.4">insertSubview: belowSubview:</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#2">UIWindow</a></li>
+  <li><a href="#3">UIControl</a>
+    <ul>
+      <li><a href="#3.1">常用方法</a></li>
+      <li><a href="#3.2">事件响应</a></li>
+      <li><a href="#3.3">事件处理</a>
+        <ul>
+          <li><a href="#3.3.1">基于触摸</a></li>
+          <li><a href="#3.3.2">基于值</a></li>
+          <li><a href="#3.3.3">基于编辑</a></li>
+          <li><a href="#3.3.4">其他</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><a name="1"></a></p>
+
+<h1 id="uiview">UIView概述</h1>
+
+<p>UIView表示屏幕上的一块矩形区域。在iOS中几乎所有可视化控件都是UIView的子类。它负责渲染区域的内容，并且响应该区域内发生的触摸事件。</p>
+
+<p><a name="1.1"></a></p>
+
+<h3 id="section-1">重要属性</h3>
+
+<p><a name="1.1.1"></a></p>
+
+<h4 id="alpha">alpha</h4>
+
+<p>不透明度</p>
+
+<p><a name="1.1.2"></a></p>
+
+<h4 id="center">center</h4>
+
+<p>视图的中心点，可以更改视图位置。</p>
+
+<p><a name="1.1.3"></a></p>
+
+<h4 id="frame">frame</h4>
+
+<ul>
+  <li><code>frame</code>是UIView的重要属性</li>
+  <li>决定了视图的大小和位置</li>
+  <li>CGRect类型</li>
+  <li>基于父视图的坐标系而言</li>
+</ul>
+
+<p><a name="1.1.4"></a></p>
+
+<h4 id="hidden">hidden</h4>
+
+<p>控制视图显示或隐藏</p>
+
+<p><a name="1.1.5"></a></p>
+
+<h4 id="subviews">subViews</h4>
+
+<p>获取本视图所有子视图</p>
+
+<p><a name="1.1.6"></a></p>
+
+<h4 id="superview">superView</h4>
+
+<p>获取本视图的父视图</p>
+
+<p><a name="1.1.7"></a></p>
+
+<h4 id="tag">tag</h4>
+
+<p>给视图标记，用于找到该视图</p>
+
+<p><a name="1.2"></a></p>
+
+<h3 id="section-2">重要方法</h3>
+
+<p><a name="1.2.1"></a></p>
+
+<h4 id="addsubview">addSubView:</h4>
+
+<p>添加子视图</p>
+
+<p><a name="1.2.2"></a></p>
+
+<h4 id="insertsubview-abovesubview">insertSubview: aboveSubview:</h4>
+
+<p>在指定的视图上添加子视图</p>
+
+<p><a name="1.2.3"></a></p>
+
+<h4 id="insertsubview-atindex">insertSubview: atIndex:</h4>
+
+<p>在指定的index处插入子视图</p>
+
+<p><a name="1.2.4"></a></p>
+
+<h4 id="insertsubview-belowsubview">insertSubview: belowSubview:</h4>
+
+<p>在指定的视图下面添加子视图</p>
+
+<p><a name="2"></a></p>
+
+<h1 id="uiwindow">UIWindow</h1>
+
+<ul>
+  <li>管理和协调应用程序的显示</li>
+  <li>UIWindow类是UIView的子类，可以看作是特殊的UIView</li>
+  <li>一般应用程序只有一个UIWindow对象</li>
+</ul>
+
+<p><a name="3"></a></p>
+
+<h1 id="uicontrol">UIControl</h1>
+
+<ul>
+  <li>UIControl是有控制功能的视图(比如UIButton、UISlider、UISegmentedControl)的父类</li>
+  <li>只要跟控制有关的控件都是继承于该类</li>
+  <li>UIControl通常不直接使用，而是使用其子类</li>
+</ul>
+
+<p><a name="3.1"></a></p>
+
+<h3 id="section-3">常用方法</h3>
+
+<ul>
+  <li><strong><code>addTarget: action: forControlEvents:</code></strong> <br />
+添加一个事件</li>
+  <li><strong><code>removeTarget: action: forControlEvents:</code></strong> <br />
+移除一个事件</li>
+</ul>
+
+<p><a name="3.2"></a></p>
+
+<h3 id="section-4">事件响应</h3>
+
+<p>事件响应的三种形式：基于触摸、基于值、基于编辑</p>
+
+<p><a name="3.3"></a></p>
+
+<h3 id="section-5">事件处理</h3>
+
+<p><a name="3.3.1"></a></p>
+
+<h4 id="section-6">基于触摸</h4>
+<ul>
+  <li>当触摸从控件内部拖到外部时触发 <br />
+<code>UIControlEventTouchDragExit</code></li>
+  <li>当控件之内触摸抬起时触发 <br />
+<code>UIControlEventTouchUpInside</code></li>
+  <li>控件之外触摸抬起时触发 <br />
+<code>UIControlEventTouchUpOutside</code></li>
+  <li>触摸取消事件，设备被上锁或者电话呼叫打断 <br />
+<code>UIControlEventTouchCancel</code></li>
+</ul>
+
+<p><a name="3.3.2"></a></p>
+
+<h4 id="section-7">基于值</h4>
+
+<ul>
+  <li>用户按下时触发 <br />
+<code>UIControlEventTouchDown</code></li>
+  <li>点击计数大于1时触发 <br />
+<code>UIControlEventTouchDownRepeat</code></li>
+  <li>当触摸在控件内拖动时触发 <br />
+<code>UIControlEventTouchDragInside</code></li>
+  <li>当触摸在控件之外拖动时触发 <br />
+<code>UIControlEventTouchDragOutside</code></li>
+  <li>当触摸从控件之外拖动到内部时触发  <br />
+<code>UIControlEventTouchDragEnter</code></li>
+</ul>
+
+<p><a name="3.3.3"></a></p>
+
+<h4 id="section-8">基于编辑</h4>
+
+<ul>
+  <li>当控件的值发生变化时。用于滑块、分段控件等控件 <br />
+<code>UIControlEventValueChanged</code></li>
+  <li>本控件中开始编辑时 <br />
+<code>UIControlEventEditingDidBegin</code></li>
+  <li>本控件中的文本被改变<br />
+<code>UIControlEventEditingChanged</code></li>
+  <li>本控件中编辑结束时<br />
+<code>UIControlEventEditingDidEnd</code></li>
+  <li>本控件内通过按下回车键结束编辑时 <br />
+<code>UIControlEventEditingDidOnExit</code></li>
+</ul>
+
+<p><a name="3.3.4"></a></p>
+
+<h4 id="section-9">其他</h4>
+
+<ul>
+  <li>所有触摸事件 <br />
+<code>UIControlEventAllTouchEvents</code></li>
+  <li>本编辑的所有事件 <br />
+<code>UIControlEventAllEditingEvents</code></li>
+  <li>所有事件<br />
+<code>UIControlEventAllEvents</code></li>
+</ul>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/UIResponder%E4%B9%8BUIView" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/UIResponder%E4%B9%8BUIView" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=/articles/2016-02/UIResponder%E4%B9%8BUIView" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/UIResponder%E4%B9%8BUIView" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-02/UIResponder%E4%B9%8BUIView" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2016 Shvier. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-62251910-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
