@@ -1,0 +1,114 @@
+---
+layout: post
+title: "AES列混合(C语言实现)"
+date: 2014-04-11 20:21:52
+categories: Guide
+---
+{% highlight c %}
+#include <stdio.h>
+
+//定义输入的状态矩阵
+int inputArray[4][4] = {{0xac,0xef,0x13,0x45},
+      {0xc1,0xb5,0x23,0x73},
+      {0xd6,0x5a,0xcf,0x11},
+      {0xb8,0x7b,0xdf,0xb5}};
+//定义b(x)多项式矩阵
+int bxArray[4][4] = {{2,3,1,1},
+      {1,2,3,1},
+      {1,1,2,3},
+      {3,1,1,2}};
+//定义移位函数
+void Shift(int arr[4][4]);
+//定义有限域GF(2^8)的乘法运算函数
+int GF_Multiply(int a,int b);
+//定义矩阵相乘函数
+void Martrix_Multiply(int arr1[4][4],int arr2[4][4],int arr3[4][4]);
+//定义遍历矩阵函数
+void List_Martrix(int arr[4][4]);
+int main()
+{
+ int outputArray[4][4];//输出数组
+ //shift(inputArray);
+ printf("输入的状态矩阵为:\n");
+ List_Martrix(inputArray);//打印输入数组
+ 
+ Martrix_Multiply(bxArray,inputArray,outputArray);//列混合运算
+ 
+ printf("列混合操作完毕,输出矩阵:\n");
+ List_Martrix(outputArray);//打印输出数组
+ //getchar();
+ return 0;
+}
+//移位函数
+void Shift(int arr[4][4])
+{
+ int i,j,k;
+ int tmp;
+ for(i = 1;i <= 3;i++)
+ {
+  for(j = 0;j <= i-1;j++)
+  {
+   tmp = arr[i][0];
+   for(k = 0;k <= 2;k++)
+   {
+    arr[i][k] = arr[i][k+1];
+   }
+   arr[i][k] = tmp;
+  }
+ }
+}
+//有限域GF(2^8)的乘法运算函数
+int GF_Multiply(int a,int b)
+{
+ switch(a)
+ {
+  case 1:
+    return b;//a=1,则相乘等于自身
+   break;
+  case 2:
+   if(b >= 0x80)
+    return (b<<1)^0x1b;//a=2则左移后第一位溢出,减去一个不可约多项式
+   else
+    return b<<1;//a=2左移后未溢出
+   break;
+  case 3:
+   if(b >= 0x80)
+    return ((b<<1)^0x1b)^b;//a=3则左移后第一位溢出,减去一个不可约多项式,再与自身进行异或运算
+   else
+    return (b<<1)^b;//a=3左移后未溢出,再与自身进行异或运算
+   break;
+ }
+}
+//矩阵相乘函数
+void Martrix_Multiply(int arr1[4][4],int arr2[4][4],int outputArray[4][4])
+{
+ int i,j;//计数变量
+ for(i = 0;i <= 3;i++)
+ {
+  for(j = 0;j <= 3;j++)
+  {
+   //列混合运算
+   outputArray[i][j] = GF_Multiply(arr1[i][0],arr2[0][j])
+        ^GF_Multiply(arr1[i][1],arr2[1][j])
+        ^GF_Multiply(arr1[i][2],arr2[2][j])
+        ^GF_Multiply(arr1[i][3],arr2[3][j]);
+   //对进行移位操作时溢出的数据进行修正操作
+   if(outputArray[i][j] >= 256)
+    outputArray[i][j] -= 256;
+  }
+  j = 0;//计数器清零
+ }
+}
+//遍历矩阵函数
+void List_Martrix(int arr[4][4])
+{
+ int i,j;
+ for(i = 0;i <= 3;i++)
+ {
+  for(j= 0;j <= 3;j++)
+   printf("%0X\t",arr[i][j]);
+  printf("\n");
+ }
+}
+{% endhighlight %}
+http://blog.sina.com.cn/s/blog_c4b773dd0101mij7.html
