@@ -97,6 +97,116 @@
       
       •
       
+        <a class="post-cat" href="/categories/#Objective-C">Objective-C</a>
+        
+      
+      
+    </p>
+    <h4>
+      <a href="/articles/2016-04/%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86%E5%8F%8A%E5%87%A0%E4%B8%AA%E5%B0%8FTIPS" class="post-title" title="数组遍历及几个小Tips">数组遍历及几个小Tips</a>
+      
+    </h4>
+
+    
+
+    </header>
+
+    
+    <div class="post-description">
+      <p>
+        <h1 id="section">前言</h1>
+
+<p>之前一直以为数组的遍历方式有三种： <br />
+1. for <br />
+2. forin <br />
+3. 快速枚举</p>
+
+<p>今天偶然发现有这么一个方法<code>enumrateObjectsUsingBlock:</code> <br />
+通过传入一个block进行数组遍历，这个block的类型是这样的：</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="o">^</span><span class="p">(</span><span class="kt">id</span> <span class="n">_Nonnull</span> <span class="n">obj</span><span class="p">,</span> <span class="bp">NSUInteger</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="o">*</span> <span class="n">_Nonnull</span> <span class="n">stop</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span></code></pre></figure>
+
+<h4 id="section-1">用法</h4>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">NSArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="l">@[</span><span class="s">@&quot;Using&quot;</span><span class="p">,</span> <span class="s">@&quot;Swift&quot;</span><span class="p">,</span> <span class="s">@&quot;!&quot;</span><span class="l">]</span><span class="p">;</span>
+<span class="p">[</span><span class="n">array</span> <span class="nl">enumrateObjectsUsingBlock</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="kt">id</span> <span class="n">_Nonnull</span> <span class="n">obj</span><span class="p">,</span> <span class="bp">NSUInteger</span> <span class="n">idx</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="o">*</span> <span class="n">_Nonnull</span> <span class="n">stop</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%ld - %@&quot;</span><span class="p">,</span> <span class="n">idx</span><span class="p">,</span> <span class="n">obj</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">idx</span> <span class="o">==</span> <span class="n">array</span><span class="p">.</span><span class="n">count</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> 
+		<span class="o">*</span><span class="n">stop</span> <span class="o">=</span> <span class="nb">YES</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}];</span></code></pre></figure>
+
+<h1 id="section-2">代码块</h1>
+
+<p>前不久在知乎上看到一种非常特别的写法，可读性很强，看起来也比较美观，记录一下：</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="nb">self</span><span class="p">.</span><span class="n">profileView</span> <span class="o">=</span> <span class="p">({</span>
+	<span class="n">PRProfileView</span> <span class="o">*</span><span class="n">view</span> <span class="o">=</span> <span class="p">[[</span><span class="n">PRProfileView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:({</span>
+		<span class="bp">CGRect</span> <span class="n">frame</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">views</span><span class="p">.</span><span class="n">bounds</span><span class="err">&#39;</span>
+		<span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-=</span> <span class="mf">200.f</span><span class="p">;</span>
+		<span class="n">frame</span><span class="p">;</span>
+	<span class="p">})]</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="nb">self</span><span class="p">;</span>
+	<span class="n">view</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="nb">self</span><span class="p">;</span>
+	<span class="n">view</span><span class="p">;</span>
+<span class="p">});</span>
+<span class="c1">// 传统写法</span>
+<span class="cm">/*</span>
+<span class="cm">CGRect profileViewFrame = self.views.bounds;</span>
+<span class="cm">profileViewFrame.size.height -= 200.0f;</span>
+<span class="cm">PRProfileView *profileView = [[PRProfileView alloc] initWithFrame:profileViewFrame];</span>
+<span class="cm">profileView.delegate = self;</span>
+<span class="cm">profileView.dataSource = self;</span>
+<span class="cm">self.profileView = profileView;</span>
+<span class="cm">*/</span></code></pre></figure>
+
+<h1 id="block">使用block简化代码</h1>
+
+<p>与用函数封装代码类似。下面依然是知乎上的例子，利用block封装初始化代码的一个例子：</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UILabel</span> <span class="o">*</span><span class="p">(</span><span class="o">^</span><span class="n">block</span><span class="p">)(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">,</span> <span class="bp">UIColor</span> <span class="o">*</span><span class="p">,</span> <span class="n">CGFloat</span><span class="p">)</span> <span class="o">=</span> <span class="o">^</span><span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="n">title</span><span class="p">,</span> <span class="bp">UIColor</span> <span class="o">*</span><span class="n">textColor</span><span class="p">,</span> <span class="n">CGFloat</span> <span class="n">fontSize</span><span class="p">)</span> <span class="p">{</span>
+	<span class="bp">UILabel</span> <span class="o">*</span><span class="n">label</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UILabel</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">init</span><span class="p">];</span>
+	<span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">;</span>
+	<span class="n">label</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">textColor</span><span class="p">;</span>
+	<span class="n">label</span><span class="p">.</span><span class="n">font</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIFont</span> <span class="nl">systemFontOfSize</span><span class="p">:</span><span class="n">fontSize</span><span class="p">];</span>
+	<span class="k">return</span> <span class="n">label</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="bp">UILabel</span> <span class="o">*</span><span class="n">label1</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="s">@&quot;title1&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">],</span> <span class="mi">12</span><span class="p">);</span>
+<span class="bp">UILabel</span> <span class="o">*</span><span class="n">label2</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="s">@&quot;title2&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">brownColor</span><span class="p">],</span> <span class="mi">13</span><span class="p">);</span>
+<span class="bp">UILabel</span> <span class="o">*</span><span class="n">label3</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="s">@&quot;title3&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">blueColor</span><span class="p">],</span> <span class="mi">14</span><span class="p">);</span>
+<span class="bp">UILabel</span> <span class="o">*</span><span class="n">label4</span> <span class="o">=</span> <span class="n">block</span><span class="p">(</span><span class="s">@&quot;title4&quot;</span><span class="p">,</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">yellowColor</span><span class="p">],</span> <span class="mi">15</span><span class="p">);</span></code></pre></figure>
+
+<h1 id="section-3">宏定义的使用</h1>
+
+<p>在Xcode的早期版本，每个工程都会自动生成一个<code>pch</code>文件，在新版本中需要手动添加，<code>pch</code>文件的作用就是，pch里所引用或者定义的代码在每一个文件中都可以直接使用。 <br />
+在实际开发中，我们需要用<code>NSLog(...)</code>来方便我们调试工程，但是在发布到AppStore时这些代码都是没有任何作用的，所以可以采用这样的宏定义技巧，来让调试时NSLog有效，而发布成正式版本时无效：</p>
+
+<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#ifdef DEBUG</span>
+<span class="cp">#define Log(...) NSLog(__VA_ARGS__)</span>
+<span class="cp">#else</span>
+<span class="cp">#define Log(...)</span>
+<span class="cp">#endif</span></code></pre></figure>
+
+<p>如果宏定义是一个函数，并且有多行怎么办呢，可以使用<code>\</code>连接下一行。</p>
+
+      </p>
+    </div>
+    
+
+    
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        11 APR 2016
+      </span>
+      
+      •
+      
         <a class="post-cat" href="/categories/#杂记">杂记</a>
         
       
