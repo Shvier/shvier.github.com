@@ -5,9 +5,35 @@
     <description>Hello and welcome.</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 12 Apr 2016 09:34:47 +0800</pubDate>
-    <lastBuildDate>Tue, 12 Apr 2016 09:34:47 +0800</lastBuildDate>
+    <pubDate>Tue, 12 Apr 2016 01:44:20 +0000</pubDate>
+    <lastBuildDate>Tue, 12 Apr 2016 01:44:20 +0000</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
+    
+      <item>
+        <title>三四月总结</title>
+        <description>&lt;h1 id=&quot;section&quot;&gt;总结&lt;/h1&gt;
+
+&lt;p&gt;从三月到现在一直在做自己设计的一款APP，现在大概功能都已经实现了，而设(nv)计(peng)师(you)大大还在赶工绘制素材，所以趁着这几天清闲把这一个多月的空填一填。 &lt;br /&gt;
+之前就一直想把以前写的新浪博客搬运过来，拖到今天也算完工了。再看以前的那些博客，发现有很多不成熟的地方，遂删掉了(-。-)以前的代码风格也跟现在截然不同，算是一点点在进步。 &lt;br /&gt;
+转眼距自己辞掉工作已经过去半年了，也自学iOS开发快半年了，一开始接触Objective-C的时候觉得写发极其怪异，现在反倒不习惯C/C++那一套了。&lt;/p&gt;
+
+&lt;h1 id=&quot;app&quot;&gt;关于APP&lt;/h1&gt;
+
+&lt;p&gt;做这个APP的时候，发现很多自己在之前学习中没有了解到的地方，包括用到的一些第三方SDK(&lt;code&gt;高德SDK&lt;/code&gt;、&lt;code&gt;友盟SDK&lt;/code&gt;)，还有在绘制表格的时候查到了一个国人写的第三方&lt;code&gt;PNChart&lt;/code&gt;，一开始以为像喵神那种已经是非常厉害的了，一直以那种人为榜样，现在又发现了更厉害的，包括kevinzhow在自己的主页上设计房子的草图，也是我非常向往，所以要一直努力啊(ง •̀_•́)ง&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;计划&lt;/h1&gt;
+
+&lt;p&gt;接下来的打算就很简单了，把APP逐步完善、导入美工素材，就要考虑上架的事情了(毕竟600T.T)在这期间也同时把这半年的学习做一个系统的整理，看看工作机会，有对眼的就投一波٩( ‘ω’ )و 最后附上APP的图标(女友的小清新风格( • ̀ω•́ )✧) &lt;br /&gt;
+&lt;img src=&quot;images/appicon.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 12 Apr 2016 01:18:46 +0000</pubDate>
+        <link>/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93</link>
+        <guid isPermaLink="true">/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93</guid>
+        
+        
+        <category>杂记</category>
+        
+      </item>
     
       <item>
         <title>你的美丽，只能给我</title>
@@ -41,7 +67,7 @@
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Tue, 01 Mar 2016 20:20:00 +0800</pubDate>
+        <pubDate>Tue, 01 Mar 2016 12:20:00 +0000</pubDate>
         <link>/articles/2016-03/%E4%BD%A0%E7%9A%84%E7%BE%8E%E4%B8%BD-%E5%8F%AA%E8%83%BD%E7%BB%99%E6%88%91</link>
         <guid isPermaLink="true">/articles/2016-03/%E4%BD%A0%E7%9A%84%E7%BE%8E%E4%B8%BD-%E5%8F%AA%E8%83%BD%E7%BB%99%E6%88%91</guid>
         
@@ -109,7 +135,7 @@
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Tue, 01 Mar 2016 20:00:00 +0800</pubDate>
+        <pubDate>Tue, 01 Mar 2016 12:00:00 +0000</pubDate>
         <link>/articles/2016-03/%E5%85%B3%E4%BA%8E%E4%BD%A0%E7%9A%84%E9%82%A3%E4%BA%9B</link>
         <guid isPermaLink="true">/articles/2016-03/%E5%85%B3%E4%BA%8E%E4%BD%A0%E7%9A%84%E9%82%A3%E4%BA%9B</guid>
         
@@ -171,7 +197,7 @@
 - 在非arc下使用&lt;code&gt;__block&lt;/code&gt;修饰变量来防止循环引用 &lt;br /&gt;
 - 在arc下使用&lt;code&gt;__weak&lt;/code&gt;修饰变量来防止循环引用&lt;/p&gt;
 </description>
-        <pubDate>Mon, 15 Feb 2016 19:37:24 +0800</pubDate>
+        <pubDate>Mon, 15 Feb 2016 11:37:24 +0000</pubDate>
         <link>/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1</link>
         <guid isPermaLink="true">/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1</guid>
         
@@ -245,7 +271,7 @@
 &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alertController&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deleteAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alertController&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;archiveAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
-        <pubDate>Sun, 14 Feb 2016 04:21:38 +0800</pubDate>
+        <pubDate>Sat, 13 Feb 2016 20:21:38 +0000</pubDate>
         <link>/articles/2016-02/UIViewController%E4%B9%8BUIAlertController</link>
         <guid isPermaLink="true">/articles/2016-02/UIViewController%E4%B9%8BUIAlertController</guid>
         
@@ -383,7 +409,7 @@
 
 &lt;h3 id=&quot;section-7&quot;&gt;自定义瀑布流&lt;/h3&gt;
 </description>
-        <pubDate>Sun, 14 Feb 2016 00:24:47 +0800</pubDate>
+        <pubDate>Sat, 13 Feb 2016 16:24:47 +0000</pubDate>
         <link>/articles/2016-02/UIView%E4%B9%8BUICollectionView</link>
         <guid isPermaLink="true">/articles/2016-02/UIView%E4%B9%8BUICollectionView</guid>
         
@@ -500,7 +526,7 @@
 
 &lt;h3 id=&quot;uiappearance&quot;&gt;UIAppearance&lt;/h3&gt;
 </description>
-        <pubDate>Sat, 13 Feb 2016 02:48:24 +0800</pubDate>
+        <pubDate>Fri, 12 Feb 2016 18:48:24 +0000</pubDate>
         <link>/articles/2016-02/UIViewController%E4%B9%8BUITabBarController</link>
         <guid isPermaLink="true">/articles/2016-02/UIViewController%E4%B9%8BUITabBarController</guid>
         
@@ -685,7 +711,7 @@
   &lt;li&gt;模态(modal)用于单独功能页面的跳转和主要逻辑功能没有联系的跳转&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Fri, 12 Feb 2016 21:27:42 +0800</pubDate>
+        <pubDate>Fri, 12 Feb 2016 13:27:42 +0000</pubDate>
         <link>/articles/2016-02/UIViewController%E4%B9%8BUINavigationController</link>
         <guid isPermaLink="true">/articles/2016-02/UIViewController%E4%B9%8BUINavigationController</guid>
         
@@ -894,7 +920,7 @@ UITableView右侧的索引目录&lt;/li&gt;
   &lt;li&gt;开发中只需要建立UITableViewController类&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Thu, 11 Feb 2016 23:01:13 +0800</pubDate>
+        <pubDate>Thu, 11 Feb 2016 15:01:13 +0000</pubDate>
         <link>/articles/2016-02/UIView%E4%B9%8BUITableView</link>
         <guid isPermaLink="true">/articles/2016-02/UIView%E4%B9%8BUITableView</guid>
         
@@ -1111,85 +1137,9 @@ UITableView右侧的索引目录&lt;/li&gt;
 	&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;currentPage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scrollView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;contentOffset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kWidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 </description>
-        <pubDate>Thu, 11 Feb 2016 19:24:43 +0800</pubDate>
+        <pubDate>Thu, 11 Feb 2016 11:24:43 +0000</pubDate>
         <link>/articles/2016-02/UIView%E4%B9%8BUIScrollView</link>
         <guid isPermaLink="true">/articles/2016-02/UIView%E4%B9%8BUIScrollView</guid>
-        
-        
-        <category>Objective-C</category>
-        
-      </item>
-    
-      <item>
-        <title>UIView之UIImageView</title>
-        <description>&lt;h1 id=&quot;section&quot;&gt;目录&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;#1&quot;&gt;初始化&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#2&quot;&gt;动态图&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;uiimageview&quot;&gt;UIImageView概述&lt;/h1&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code&gt;UIImageView&lt;/code&gt;是iOS中用来显示图片的类，iOS中几乎所有看到的图片，都是由这个类来显示的&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;UIImageView&lt;/code&gt;相当于一个相框，专门用作显示图片，可以存放一个图片或一组图片&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a name=&quot;1&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;初始化&lt;/h3&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 图片文件路径&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;NSString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;NSBundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainBundle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;pathForResource&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&amp;quot;head&amp;quot;&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;ofType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&amp;quot;jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 创建一个UIImage对象，使用initWithContentOfFile:方法&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;imageWithContensOfFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 创建一个UIImageView对象，使用initWithImage:方法&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;UIImageView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIImageView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a name=&quot;2&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;动态图(动画)&lt;/h3&gt;
-
-&lt;h4 id=&quot;section-3&quot;&gt;相关方法&lt;/h4&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code&gt;animationImages&lt;/code&gt; &lt;br /&gt;
-设置一组动态图片&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;animationDuration&lt;/code&gt; &lt;br /&gt;
-设置播放一组动态图片的时间&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;animationRepeatCount&lt;/code&gt; &lt;br /&gt;
-设置重复次数&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;startAnimating&lt;/code&gt; &lt;br /&gt;
-开始动画&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;stopAnimating&lt;/code&gt; &lt;br /&gt;
-结束动画&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h4 id=&quot;section-4&quot;&gt;示例&lt;/h4&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;bp&quot;&gt;UIImageView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIImageView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;view&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 将帧动画图片按1.jpg，2.jpg的形式编号放在工程目录下&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 初始化一个数组用来存放帧图片&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 假设图片数量为n&lt;/span&gt;
-&lt;span class=&quot;bp&quot;&gt;NSMutableArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;NSMutableArray&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithCapacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;bp&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;imageNamed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;NSString&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;stringWithFormat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&amp;quot;%d.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;images&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animationImages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;images&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animationDuration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animationRepeatCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//设置为0表示无限循环&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imageView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startAnimating&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-</description>
-        <pubDate>Thu, 11 Feb 2016 19:24:43 +0800</pubDate>
-        <link>/articles/2016-02/UIView%E4%B9%8BUIImageView</link>
-        <guid isPermaLink="true">/articles/2016-02/UIView%E4%B9%8BUIImageView</guid>
         
         
         <category>Objective-C</category>

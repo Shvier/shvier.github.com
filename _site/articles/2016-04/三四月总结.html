@@ -6,14 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>iOS之界面通信</title>
-  <meta name="description" content="属性传值  在被传递的视图控制器定义一个模型属性  在传递该属性的视图控制器里设置该属性的值  在被传递的视图控制器里给属性赋值协议传值  声明协议  声明代理人  执行协议方法  签订协议  指定代理人  实现协议方法block传值  block是匿名函数，能够实现函数回调功能  用于界面之间的通信，同时可以进...">
+  <title>三四月总结</title>
+  <meta name="description" content="总结从三月到现在一直在做自己设计的一款APP，现在大概功能都已经实现了，而设(nv)计(peng)师(you)大大还在赶工绘制素材，所以趁着这几天清闲把这一个多月的空填一填。 之前就一直想把以前写的新浪博客搬运过来，拖到今天也算完工了。再看以前的那些博客，发现有很多不成熟的地方，遂删掉了(-。-)以前的代码风格也...">
 
   <!-- CSS files -->
   <link rel="stylesheet" href="/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
 
-  <link rel="canonical" href="/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1">
+  <link rel="canonical" href="/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93">
   <link rel="alternate" type="application/rss+xml" title="Gallery In Shadow" href=" /feed.xml " />
 
   <!-- Icons -->
@@ -95,10 +95,10 @@
 
 <div id="post">
   <header class="post-header">
-    <h1 title="iOS之界面通信">iOS之界面通信</h1>
+    <h1 title="三四月总结">三四月总结</h1>
     <span class="post-meta">
       <span class="post-date">
-        15 FEB 2016
+        12 APR 2016
       </span>
       •
       <span class="read-time" title="Estimated read time">
@@ -113,56 +113,20 @@
   </header>
 
   <article class="post-content">
-    <h1 id="section">属性传值</h1>
+    <h1 id="section">总结</h1>
 
-<ul>
-  <li>在被传递的视图控制器定义一个模型属性</li>
-  <li>在传递该属性的视图控制器里设置该属性的值</li>
-  <li>在被传递的视图控制器里给属性赋值</li>
-</ul>
+<p>从三月到现在一直在做自己设计的一款APP，现在大概功能都已经实现了，而设(nv)计(peng)师(you)大大还在赶工绘制素材，所以趁着这几天清闲把这一个多月的空填一填。 <br />
+之前就一直想把以前写的新浪博客搬运过来，拖到今天也算完工了。再看以前的那些博客，发现有很多不成熟的地方，遂删掉了(-。-)以前的代码风格也跟现在截然不同，算是一点点在进步。 <br />
+转眼距自己辞掉工作已经过去半年了，也自学iOS开发快半年了，一开始接触Objective-C的时候觉得写发极其怪异，现在反倒不习惯C/C++那一套了。</p>
 
-<h1 id="section-1">协议传值</h1>
+<h1 id="app">关于APP</h1>
 
-<ul>
-  <li>声明协议</li>
-  <li>声明代理人</li>
-  <li>执行协议方法</li>
-  <li>签订协议</li>
-  <li>指定代理人</li>
-  <li>实现协议方法</li>
-</ul>
+<p>做这个APP的时候，发现很多自己在之前学习中没有了解到的地方，包括用到的一些第三方SDK(<code>高德SDK</code>、<code>友盟SDK</code>)，还有在绘制表格的时候查到了一个国人写的第三方<code>PNChart</code>，一开始以为像喵神那种已经是非常厉害的了，一直以那种人为榜样，现在又发现了更厉害的，包括kevinzhow在自己的主页上设计房子的草图，也是我非常向往，所以要一直努力啊(ง •̀_•́)ง</p>
 
-<h1 id="block">block传值</h1>
+<h1 id="section-1">计划</h1>
 
-<ul>
-  <li>block是匿名函数，能够实现函数回调功能</li>
-  <li>用于界面之间的通信，同时可以进行传值</li>
-  <li>使用的场合类似协议传值，都是解决从后一个页面往前一个页面传值的问题
-    <ul>
-      <li>使用block属性实现回调传值</li>
-      <li>在方法中定义block实现回调传值</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="section-2">内存管理</h3>
-
-<figure class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">dealloc</span> <span class="p">{</span>
-	<span class="n">Block_release</span><span class="p">(</span><span class="n">_block</span><span class="p">);</span>
-	<span class="p">[</span><span class="nb">super</span> <span class="n">dealloc</span><span class="p">];</span>
-<span class="p">}</span></code></pre></figure>
-
-<ul>
-  <li>当block变量定义为属性的时候，必须使用copy修饰，retain和assign都会造成野指针的问题</li>
-  <li>当对block进行copy操作的时候，此时block的内存区域为堆区</li>
-  <li>当不使用block时需要使用Block_release()进行销毁</li>
-</ul>
-
-<h4 id="section-3">循环引用</h4>
-
-<p>使用<code> __block</code>修饰变量来解决block循环引用问题 <br />
-- 在非arc下使用<code>__block</code>修饰变量来防止循环引用 <br />
-- 在arc下使用<code>__weak</code>修饰变量来防止循环引用</p>
+<p>接下来的打算就很简单了，把APP逐步完善、导入美工素材，就要考虑上架的事情了(毕竟600T.T)在这期间也同时把这半年的学习做一个系统的整理，看看工作机会，有对眼的就投一波٩( ‘ω’ )و 最后附上APP的图标(女友的小清新风格( • ̀ω•́ )✧) <br />
+<img src="images/appicon.png" alt="" /></p>
 
   </article>
 </div>
@@ -171,19 +135,19 @@
   <h6>Share on: </h6>
   <ul>
     <li>
-      <a href="https://twitter.com/intent/tweet?text=/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+      <a href="https://twitter.com/intent/tweet?text=/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
     </li>
     <li>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
     </li>
     <li>
-      <a href="https://plus.google.com/share?url=/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+      <a href="https://plus.google.com/share?url=/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
     </li>
     <li>
-      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+      <a href="https://news.ycombinator.com/submitlink?u=/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
     </li>
     <li>
-      <a href="https://www.reddit.com/submit?url=/articles/2016-02/iOS%E4%B9%8B%E7%95%8C%E9%9D%A2%E9%80%9A%E4%BF%A1" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+      <a href="https://www.reddit.com/submit?url=/articles/2016-04/%E4%B8%89%E5%9B%9B%E6%9C%88%E6%80%BB%E7%BB%93" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
     </li>
   </ul>
 </div><!-- end share-buttons -->
