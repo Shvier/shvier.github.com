@@ -1,0 +1,111 @@
+---
+layout: post
+title: "RSA平方乘算法与模重复平方计算法(C语言实现)"
+date: 2014-04-18 19:19:27
+categories: 密码学
+---
+{% highlight c %}
+#include <stdio.h>
+#include <math.h>
+
+int NUM = 0;//二进制数组长度,初始值为0
+int Binary(int m,int bin[]);//将输入的数转换成二进制
+void RepeatCalculationMethodSquare(int a[],int b[],int bin[],int n); //模重复平方计算法
+void MultiplyMethodSquare(int a[],int b[],int bin[],int n);//平方乘算法
+void Reverse(int array[]);//反转数组
+
+void main()
+{
+	int m;//指数m
+ 	int sum_Binary; //转换成的二进制数
+ 	int binary[10]; //存储二进制的数组
+	int n;//被模的数
+ 	int a[10];//数组a
+ 	int b[10];//数组b,表示模数a
+ 	a[0] = 1;
+ 	printf("输入模数a(小于1000):");//输入模数a
+ 	scanf("%d",&b[0]);
+ 	printf("输入指数m(小于1000):");//输入指数m
+ 	scanf("%d",&m);
+ 	printf("输入被模的数n(小于1000):");//输入被模数n
+ 	scanf("%d",&n);
+ 	sum_Binary = Binary(m,binary);//返回转换成的二进制数
+ 	printf("m转换成二进制数是:%d\n",sum_Binary);//打印转换成的二进制数
+ 	//Reverse(binary);//反转二进制数组
+ 	printf("平方乘算法的结果是:\n");
+ 	MultiplyMethodSquare(a,b,binary,n);//平方乘算法计算
+ 	printf("********华丽分割线-_-||*******\n");
+ 	printf("模重复平方法的结果是:\n");
+ 	RepeatCalculationMethodSquare(a,b,binary,n);//模重复平方法计算
+ 	getchar();
+}
+
+int Binary(int m,int bin[])
+{
+ 	int tmp;//临时变量表示m模2的余数
+ 	int sum = 0;//二进制数串
+ 	while(m != 0)
+ 	{
+  		tmp = m%2;
+  		sum += tmp*pow(10.0F,NUM);
+  		bin[NUM] = tmp;
+  		m = m/2;
+  		NUM++; 
+ 	}
+ 	return sum;
+}
+
+void RepeatCalculationMethodSquare(int a[],int b[],int bin[],int n)
+{
+ 	int i = 0;
+
+ 	//模重复计算法
+ 	for(;i <= NUM;i++)
+ 	{
+  		if(bin[i] == 1)
+  		{
+   			a[i+1] = a[i]*b[i]%n;
+   			b[i+1] = b[i]*b[i]%n;
+  		}
+  		else
+  		{
+   			a[i+1] = a[i]%n;
+   			b[i+1] = b[i]*b[i]%n;
+  		}
+  		if(i-1 >= 0)
+   		printf("i=%d,a[%d]=%d,b[%d]=%d\n",i-1,i-1,a[i],i,b[i]);
+ 	}
+ 	printf("计算结果是:%d\n",a[i]);
+}
+
+void MultiplyMethodSquare(int a[],int b[],int bin[],int n)
+{
+ 	int i = 0;
+ 	int j = NUM-1;
+ 	for(;i <= NUM;i++)
+ 	{
+  		if(bin[j] == 1)
+   			a[i+1] = a[i]*a[i]*b[0]%n;
+  		else
+   			a[i+1] = a[i]*a[i]%n;
+  		if(i-1 >= 0)
+   			printf("i=%d,a[%d]=%d\n",i-1,i-1,a[i]);
+  		j--;
+ 	}
+ 	printf("计算结果是:%d\n",a[i-1]);
+}
+ 
+void Reverse(int array[])
+{
+ 	int i;
+ 	int tmp;
+ 	int content = sizeof(array)-1;
+ 	for(i = 0;i < content/2;i++)
+ 	{
+  		tmp = array[content-i];
+  		array[content-i] = array[i];
+  		array[i] = tmp;
+ 	}
+}
+{% endhighlight %}
+[http://blog.sina.com.cn/s/blog_c4b773dd0101mmf3.html](http://blog.sina.com.cn/s/blog_c4b773dd0101mmf3.html)

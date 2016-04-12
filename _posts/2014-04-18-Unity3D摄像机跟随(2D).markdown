@@ -1,0 +1,51 @@
+---
+layout: post
+title: "Unity3D摄像机跟随(2D)"
+date: 2014-04-18 22:52:47
+categories: 独立游戏
+---
+{% highlight c# %}
+using UnityEngine;
+using System.Collections;
+
+public class SmoothFollow : MonoBehaviour {
+
+    public Transform target;//跟随的目标物体
+    public float distance = 5.0F;//摄像机到投影屏幕的距离，即Z轴距离
+    public float height = 5.0F;//摄像机到目标物体的高度
+    public float heightDamping = 2.0F;//摄像机每次抬高的高度
+    public float rotationDamping = 3.0F;//摄像机每次旋转的角度
+
+    void LateUpdate()
+    {
+
+        //如果目标物体为空，则不进行任何处理
+        if (!target)
+            return;
+
+        //计算摄像机需要旋转的角度和抬高的位置
+        float wantedRotationAngle = target.eulerAngles.y;
+        float wantedHeight = target.position.y + height;
+
+        float currentRotationAngle = transform.eulerAngles.y;
+        float currentHeight = transform.position.y;
+
+        //缓慢调整旋转角度
+        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+        
+        //缓慢调整摄像机高度
+        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+
+        //将旋转矢量转换成旋转值
+        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+        //放置摄像机在目标物体后面
+        transform.position = target.position;
+        transform.position -= currentRotation * Vector3.forward * distance;
+ 
+        //放置摄像机的高度
+        //transform.position = new Vector3(transform.position.x,currentHeight,transform.position.z);
+    }
+}
+{% endhighlight %}
+[http://blog.sina.com.cn/s/blog_c4b773dd0101mmmc.html](http://blog.sina.com.cn/s/blog_c4b773dd0101mmmc.html)

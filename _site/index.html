@@ -120,7 +120,7 @@
   <li>你喜欢那种晚会的裙子，说自己腿粗粗穿不了。</li>
   <li>你累的时候特别可爱，说话都软绵绵的。</li>
   <li>你开心的时候特别能逗，有时候都忘乎所以。</li>
-  <li>你做事一直都没有毅力，我在努力的用自己影响你。</li>
+  <li>你做有些事不能持之以恒，我在努力的用自己影响你。</li>
   <li>你经常会说一些决定性的话，然后又没有遵守，等我问起来的时候就各种推脱找借口撒娇。</li>
   <li>你有时候会莫名其妙的看着我笑，我觉得很温暖。</li>
   <li>你知道我没有那么适合你，但还是在等我们慢慢磨合。</li>
@@ -139,7 +139,7 @@
   <li>你怕冷。</li>
   <li>你喜欢牵手的时候我把你的手握住。</li>
   <li>你想要有一个充满艺术气息的家。</li>
-  <li>你想要一个女儿，说要打扮的美美的。</li>
+  <li>你说如果有一个女儿，要给她打扮的美美的。</li>
   <li>未完…</li>
 </ul>
 
@@ -3812,6 +3812,488 @@ jekyll安装成功后，可以新建一个jekyll博客，也可以使用现有�
     <div class="post-description">
       <p>
         <p>已登录GitHub，请指示！</p>
+
+      </p>
+    </div>
+    
+
+    
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        19 APR 2014
+      </span>
+      
+      •
+      
+        <a class="post-cat" href="/categories/#独立游戏">独立游戏</a>
+        
+      
+      
+    </p>
+    <h4>
+      <a href="/articles/2014-04/Unity3D%E6%91%84%E5%83%8F%E6%9C%BA%E8%B7%9F%E9%9A%8F(2D)" class="post-title" title="Unity3D摄像机跟随(2D)">Unity3D摄像机跟随(2D)</a>
+      
+    </h4>
+
+    
+
+    </header>
+
+    
+    <div class="post-description">
+      <p>
+        
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">System.Collections</span><span class="p">;</span>
+
+<span class="k">public</span> <span class="k">class</span> <span class="nc">SmoothFollow</span> <span class="p">:</span> <span class="n">MonoBehaviour</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="n">Transform</span> <span class="n">target</span><span class="p">;</span><span class="c1">//跟随的目标物体</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">distance</span> <span class="p">=</span> <span class="m">5.0F</span><span class="p">;</span><span class="c1">//摄像机到投影屏幕的距离，即Z轴距离</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">height</span> <span class="p">=</span> <span class="m">5.0F</span><span class="p">;</span><span class="c1">//摄像机到目标物体的高度</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">heightDamping</span> <span class="p">=</span> <span class="m">2.0F</span><span class="p">;</span><span class="c1">//摄像机每次抬高的高度</span>
+    <span class="k">public</span> <span class="kt">float</span> <span class="n">rotationDamping</span> <span class="p">=</span> <span class="m">3.0F</span><span class="p">;</span><span class="c1">//摄像机每次旋转的角度</span>
+
+    <span class="k">void</span> <span class="nf">LateUpdate</span><span class="p">()</span>
+    <span class="p">{</span>
+
+        <span class="c1">//如果目标物体为空，则不进行任何处理</span>
+        <span class="k">if</span> <span class="p">(!</span><span class="n">target</span><span class="p">)</span>
+            <span class="k">return</span><span class="p">;</span>
+
+        <span class="c1">//计算摄像机需要旋转的角度和抬高的位置</span>
+        <span class="kt">float</span> <span class="n">wantedRotationAngle</span> <span class="p">=</span> <span class="n">target</span><span class="p">.</span><span class="n">eulerAngles</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">wantedHeight</span> <span class="p">=</span> <span class="n">target</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="n">height</span><span class="p">;</span>
+
+        <span class="kt">float</span> <span class="n">currentRotationAngle</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">eulerAngles</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+        <span class="kt">float</span> <span class="n">currentHeight</span> <span class="p">=</span> <span class="n">transform</span><span class="p">.</span><span class="n">position</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+
+        <span class="c1">//缓慢调整旋转角度</span>
+        <span class="n">currentRotationAngle</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="n">LerpAngle</span><span class="p">(</span><span class="n">currentRotationAngle</span><span class="p">,</span> <span class="n">wantedRotationAngle</span><span class="p">,</span> <span class="n">rotationDamping</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+        
+        <span class="c1">//缓慢调整摄像机高度</span>
+        <span class="n">currentHeight</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="n">Lerp</span><span class="p">(</span><span class="n">currentHeight</span><span class="p">,</span> <span class="n">wantedHeight</span><span class="p">,</span> <span class="n">heightDamping</span> <span class="p">*</span> <span class="n">Time</span><span class="p">.</span><span class="n">deltaTime</span><span class="p">);</span>
+
+        <span class="c1">//将旋转矢量转换成旋转值</span>
+        <span class="n">Quaternion</span> <span class="n">currentRotation</span> <span class="p">=</span> <span class="n">Quaternion</span><span class="p">.</span><span class="n">Euler</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">currentRotationAngle</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+
+        <span class="c1">//放置摄像机在目标物体后面</span>
+        <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">=</span> <span class="n">target</span><span class="p">.</span><span class="n">position</span><span class="p">;</span>
+        <span class="n">transform</span><span class="p">.</span><span class="n">position</span> <span class="p">-=</span> <span class="n">currentRotation</span> <span class="p">*</span> <span class="n">Vector3</span><span class="p">.</span><span class="n">forward</span> <span class="p">*</span> <span class="n">distance</span><span class="p">;</span>
+ 
+        <span class="c1">//放置摄像机的高度</span>
+        <span class="c1">//transform.position = new Vector3(transform.position.x,currentHeight,transform.position.z);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><a href="http://blog.sina.com.cn/s/blog_c4b773dd0101mmmc.html">http://blog.sina.com.cn/s/blog_c4b773dd0101mmmc.html</a></p>
+
+      </p>
+    </div>
+    
+
+    
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        19 APR 2014
+      </span>
+      
+      •
+      
+        <a class="post-cat" href="/categories/#密码学">密码学</a>
+        
+      
+      
+    </p>
+    <h4>
+      <a href="/articles/2014-04/RSA%E5%B9%B3%E6%96%B9%E4%B9%98%E7%AE%97%E6%B3%95%E4%B8%8E%E6%A8%A1%E9%87%8D%E5%A4%8D%E5%B9%B3%E6%96%B9%E8%AE%A1%E7%AE%97%E6%B3%95(C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0)" class="post-title" title="RSA平方乘算法与模重复平方计算法(C语言实现)">RSA平方乘算法与模重复平方计算法(C语言实现)</a>
+      
+    </h4>
+
+    
+
+    </header>
+
+    
+    <div class="post-description">
+      <p>
+        
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;math.h&gt;</span>
+
+<span class="kt">int</span> <span class="n">NUM</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//二进制数组长度,初始值为0</span>
+<span class="kt">int</span> <span class="nf">Binary</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[]);</span><span class="c1">//将输入的数转换成二进制</span>
+<span class="kt">void</span> <span class="nf">RepeatCalculationMethodSquare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">b</span><span class="p">[],</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[],</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span> <span class="c1">//模重复平方计算法</span>
+<span class="kt">void</span> <span class="nf">MultiplyMethodSquare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">b</span><span class="p">[],</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[],</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span><span class="c1">//平方乘算法</span>
+<span class="kt">void</span> <span class="nf">Reverse</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[]);</span><span class="c1">//反转数组</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">m</span><span class="p">;</span><span class="c1">//指数m</span>
+ 	<span class="kt">int</span> <span class="n">sum_Binary</span><span class="p">;</span> <span class="c1">//转换成的二进制数</span>
+ 	<span class="kt">int</span> <span class="n">binary</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">//存储二进制的数组</span>
+	<span class="kt">int</span> <span class="n">n</span><span class="p">;</span><span class="c1">//被模的数</span>
+ 	<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="c1">//数组a</span>
+ 	<span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span><span class="c1">//数组b,表示模数a</span>
+ 	<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入模数a(小于1000):&quot;</span><span class="p">);</span><span class="c1">//输入模数a</span>
+ 	<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入指数m(小于1000):&quot;</span><span class="p">);</span><span class="c1">//输入指数m</span>
+ 	<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入被模的数n(小于1000):&quot;</span><span class="p">);</span><span class="c1">//输入被模数n</span>
+ 	<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+ 	<span class="n">sum_Binary</span> <span class="o">=</span> <span class="n">Binary</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">binary</span><span class="p">);</span><span class="c1">//返回转换成的二进制数</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;m转换成二进制数是:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">sum_Binary</span><span class="p">);</span><span class="c1">//打印转换成的二进制数</span>
+ 	<span class="c1">//Reverse(binary);//反转二进制数组</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;平方乘算法的结果是:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ 	<span class="n">MultiplyMethodSquare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">binary</span><span class="p">,</span><span class="n">n</span><span class="p">);</span><span class="c1">//平方乘算法计算</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;********华丽分割线-_-||*******</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;模重复平方法的结果是:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ 	<span class="n">RepeatCalculationMethodSquare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">binary</span><span class="p">,</span><span class="n">n</span><span class="p">);</span><span class="c1">//模重复平方法计算</span>
+ 	<span class="n">getchar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">Binary</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[])</span>
+<span class="p">{</span>
+ 	<span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span><span class="c1">//临时变量表示m模2的余数</span>
+ 	<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//二进制数串</span>
+ 	<span class="k">while</span><span class="p">(</span><span class="n">m</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+ 	<span class="p">{</span>
+  		<span class="n">tmp</span> <span class="o">=</span> <span class="n">m</span><span class="o">%</span><span class="mi">2</span><span class="p">;</span>
+  		<span class="n">sum</span> <span class="o">+=</span> <span class="n">tmp</span><span class="o">*</span><span class="n">pow</span><span class="p">(</span><span class="mf">10.0F</span><span class="p">,</span><span class="n">NUM</span><span class="p">);</span>
+  		<span class="n">bin</span><span class="p">[</span><span class="n">NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+  		<span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+  		<span class="n">NUM</span><span class="o">++</span><span class="p">;</span> 
+ 	<span class="p">}</span>
+ 	<span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">RepeatCalculationMethodSquare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">b</span><span class="p">[],</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[],</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+ 	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+ 	<span class="c1">//模重复计算法</span>
+ 	<span class="k">for</span><span class="p">(;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">NUM</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+ 	<span class="p">{</span>
+  		<span class="k">if</span><span class="p">(</span><span class="n">bin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+  		<span class="p">{</span>
+   			<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+   			<span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+  		<span class="p">}</span>
+  		<span class="k">else</span>
+  		<span class="p">{</span>
+   			<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+   			<span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+  		<span class="p">}</span>
+  		<span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+   		<span class="n">printf</span><span class="p">(</span><span class="s">&quot;i=%d,a[%d]=%d,b[%d]=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">i</span><span class="p">,</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+ 	<span class="p">}</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;计算结果是:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">MultiplyMethodSquare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">b</span><span class="p">[],</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[],</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+ 	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+ 	<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">NUM</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ 	<span class="k">for</span><span class="p">(;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">NUM</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+ 	<span class="p">{</span>
+  		<span class="k">if</span><span class="p">(</span><span class="n">bin</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+   			<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+  		<span class="k">else</span>
+   			<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+  		<span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+   			<span class="n">printf</span><span class="p">(</span><span class="s">&quot;i=%d,a[%d]=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+  		<span class="n">j</span><span class="o">--</span><span class="p">;</span>
+ 	<span class="p">}</span>
+ 	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;计算结果是:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span>
+ 
+<span class="kt">void</span> <span class="nf">Reverse</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[])</span>
+<span class="p">{</span>
+ 	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+ 	<span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+ 	<span class="kt">int</span> <span class="n">content</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+ 	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">content</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+ 	<span class="p">{</span>
+  		<span class="n">tmp</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">content</span><span class="o">-</span><span class="n">i</span><span class="p">];</span>
+  		<span class="n">array</span><span class="p">[</span><span class="n">content</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+  		<span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+ 	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>http://blog.sina.com.cn/s/blog_c4b773dd0101mmf3.html</p>
+
+      </p>
+    </div>
+    
+
+    
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        18 APR 2014
+      </span>
+      
+      •
+      
+        <a class="post-cat" href="/categories/#密码学">密码学</a>
+        
+      
+      
+    </p>
+    <h4>
+      <a href="/articles/2014-04/RSA%E6%A8%A1%E5%B9%82%E8%BF%90%E7%AE%97(C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0)" class="post-title" title="RSA模幂运算(C语言实现)">RSA模幂运算(C语言实现)</a>
+      
+    </h4>
+
+    
+
+    </header>
+
+    
+    <div class="post-description">
+      <p>
+        
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;math.h&gt;</span>
+
+<span class="kt">int</span> <span class="n">NUM</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//二进制数组长度,初始值为0</span>
+<span class="kt">int</span> <span class="nf">Binary</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[]);</span> <span class="c1">//将输入的数转换成二进制</span>
+<span class="kt">void</span> <span class="nf">RepeatCalculationMethodSquare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">b</span><span class="p">[],</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[],</span><span class="kt">int</span> <span class="n">n</span><span class="p">);</span> <span class="c1">//模重复平方计算法</span>
+<span class="kt">void</span> <span class="nf">Reverse</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[]);</span> <span class="c1">//反转数组</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">m</span><span class="p">;</span> <span class="c1">//指数m</span>
+	<span class="kt">int</span> <span class="n">sum_Binary</span><span class="p">;</span> <span class="c1">//转换成的二进制数</span>
+	<span class="kt">int</span> <span class="n">binary</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">//存储二进制的数组</span>
+	<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">//被模的数</span>
+	<span class="kt">int</span> <span class="n">a</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">//数组a</span>
+	<span class="kt">int</span> <span class="n">b</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span> <span class="c1">//数组b,表示模数a</span>
+
+	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入模数a(小于1000):&quot;</span><span class="p">);</span><span class="c1">//输入模数a</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入指数m(小于1000):&quot;</span><span class="p">);</span><span class="c1">//输入指数m</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入被模的数n(小于1000):&quot;</span><span class="p">);</span><span class="c1">//输入被模数n</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+	<span class="n">sum_Binary</span> <span class="o">=</span> <span class="n">Binary</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">binary</span><span class="p">);</span><span class="c1">//返回转换成的二进制数</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;m转换成二进制数是:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">sum_Binary</span><span class="p">);</span><span class="c1">//打印转换成的二进制数</span>
+	<span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="n">Reverse</span><span class="p">(</span><span class="n">binary</span><span class="p">);</span><span class="c1">//反转二进制数组</span>
+
+	<span class="n">RepeatCalculationMethodSquare</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">binary</span><span class="p">,</span><span class="n">n</span><span class="p">);</span><span class="c1">//模重复平方计算</span>
+
+	<span class="n">getchar</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">Binary</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="p">,</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[])</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span><span class="c1">//临时变量表示m模2的余数 </span>
+	<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">//二进制数串</span>
+	<span class="k">while</span><span class="p">(</span><span class="n">m</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">tmp</span> <span class="o">=</span> <span class="n">m</span><span class="o">%</span><span class="mi">2</span><span class="p">;</span>
+		<span class="n">sum</span> <span class="o">+=</span> <span class="n">tmp</span><span class="o">*</span><span class="n">pow</span><span class="p">(</span><span class="mf">10.0F</span><span class="p">,</span><span class="n">NUM</span><span class="p">);</span>
+		<span class="n">bin</span><span class="p">[</span><span class="n">NUM</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+		<span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+		<span class="n">NUM</span><span class="o">++</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">sum</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">RepeatCalculationMethodSquare</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">[],</span><span class="kt">int</span> <span class="n">b</span><span class="p">[],</span><span class="kt">int</span> <span class="n">bin</span><span class="p">[],</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="c1">//模重复计算法</span>
+	<span class="k">for</span><span class="p">(;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">NUM</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">bin</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+			<span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span> 
+		<span class="p">}</span>
+		<span class="k">else</span>
+		<span class="p">{</span>
+			<span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+			<span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="n">n</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">&quot;i=%d,a[%d]=%d,b[%d]=%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">i</span><span class="p">,</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+	<span class="n">printf</span><span class="p">(</span><span class="s">&quot;计算结果是:%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">Reverse</span><span class="p">(</span><span class="kt">int</span> <span class="n">array</span><span class="p">[])</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">content</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">content</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">tmp</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">content</span><span class="o">-</span><span class="n">i</span><span class="p">];</span>
+		<span class="n">array</span><span class="p">[</span><span class="n">content</span><span class="o">-</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+		<span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>http://blog.sina.com.cn/s/blog_c4b773dd0101mlva.html</p>
+
+      </p>
+    </div>
+    
+
+    
+
+</section>
+
+<section class="post">
+  <header class="post-header">
+    <p class="post-meta">
+      <span class="post-date">
+        12 APR 2014
+      </span>
+      
+      •
+      
+        <a class="post-cat" href="/categories/#密码学">密码学</a>
+        
+      
+      
+    </p>
+    <h4>
+      <a href="/articles/2014-04/AES%E5%88%97%E6%B7%B7%E5%90%88(C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0)" class="post-title" title="AES列混合(C语言实现)">AES列混合(C语言实现)</a>
+      
+    </h4>
+
+    
+
+    </header>
+
+    
+    <div class="post-description">
+      <p>
+        
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="c1">// 定义输入的状态矩阵</span>
+<span class="kt">int</span> <span class="n">inputArray</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="err">\</span><span class="p">{</span><span class="err">\</span><span class="p">{</span><span class="mh">0xAC</span><span class="p">,</span> <span class="mh">0xEF</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x45</span><span class="err">\</span><span class="p">},</span><span class="err">\</span><span class="p">{</span><span class="mh">0xC1</span><span class="p">,</span> <span class="mh">0xB5</span><span class="p">,</span> <span class="mh">0x23</span><span class="p">,</span> <span class="mh">0x73</span><span class="err">\</span><span class="p">},</span><span class="err">\</span><span class="p">{</span><span class="mh">0xD6</span><span class="p">,</span> <span class="mh">0x5A</span><span class="p">,</span> <span class="mh">0xCF</span><span class="p">,</span> <span class="mh">0x11</span><span class="err">\</span><span class="p">},</span><span class="err">\</span><span class="p">{</span><span class="mh">0xB8</span><span class="p">,</span> <span class="mh">0x7B</span><span class="p">,</span> <span class="mh">0xDF</span><span class="p">,</span> <span class="mh">0xB5</span><span class="err">\</span><span class="p">}</span><span class="err">\</span><span class="p">};</span>
+
+<span class="c1">// 定义b(x)多项式矩阵</span>
+<span class="kt">int</span> <span class="n">bxArray</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="err">\</span><span class="p">{</span><span class="err">\</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="err">\</span><span class="p">},</span>
+      <span class="err">\</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="err">\</span><span class="p">},</span>
+      <span class="err">\</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="err">\</span><span class="p">},</span>
+      <span class="err">\</span><span class="p">{</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="err">\</span><span class="p">}</span><span class="err">\</span> <span class="p">};</span>
+<span class="c1">// 定义移位函数</span>
+<span class="kt">void</span> <span class="nf">Shift</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]);</span>
+<span class="c1">//定义有限域GF(2^8)的乘法运算函数</span>
+<span class="kt">int</span> <span class="nf">GF_Multiply</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">);</span>
+<span class="c1">// 定义矩阵相乘函数</span>
+<span class="kt">void</span> <span class="nf">Martrix_Multiply</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr1</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span><span class="kt">int</span> <span class="n">arr2</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span><span class="kt">int</span> <span class="n">arr3</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]);</span>
+<span class="c1">// 定义遍历矩阵函数</span>
+<span class="kt">void</span> <span class="nf">List_Martrix</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+ <span class="kt">int</span> <span class="n">outputArray</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">];</span><span class="c1">// 输出数组</span>
+ <span class="c1">//shift(inputArray);</span>
+ <span class="n">printf</span><span class="p">(</span><span class="s">&quot;输入的状态矩阵为:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ <span class="n">List_Martrix</span><span class="p">(</span><span class="n">inputArray</span><span class="p">);</span><span class="c1">// 打印输入数组</span>
+ 
+ <span class="n">Martrix_Multiply</span><span class="p">(</span><span class="n">bxArray</span><span class="p">,</span><span class="n">inputArray</span><span class="p">,</span><span class="n">outputArray</span><span class="p">);</span><span class="c1">//列混合运算</span>
+ 
+ <span class="n">printf</span><span class="p">(</span><span class="s">&quot;列混合操作完毕,输出矩阵:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ <span class="n">List_Martrix</span><span class="p">(</span><span class="n">outputArray</span><span class="p">);</span><span class="c1">// 打印输出数组</span>
+ <span class="c1">//getchar();</span>
+ <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">//移位函数</span>
+<span class="kt">void</span> <span class="nf">Shift</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">{</span>
+		 <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">;</span>
+ <span class="kt">int</span> <span class="n">tmp</span><span class="p">;</span>
+ <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+ <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+   <span class="n">tmp</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+   <span class="k">for</span><span class="p">(</span><span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">)</span>
+   <span class="p">{</span>
+    <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+   <span class="p">}</span>
+   <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// 有限域GF(2^8)的乘法运算函数</span>
+<span class="kt">int</span> <span class="nf">GF_Multiply</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+ <span class="k">switch</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+ <span class="p">{</span>
+  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+    <span class="k">return</span> <span class="n">b</span><span class="p">;</span><span class="c1">// a=1,则相乘等于自身</span>
+   <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="mh">0x80</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mh">0x1b</span><span class="p">;</span><span class="c1">//a=2则左移后第一位溢出,减去一个不可约多项式</span>
+   <span class="k">else</span>
+    <span class="k">return</span> <span class="n">b</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">;</span><span class="c1">// a=2左移后未溢出</span>
+   <span class="k">break</span><span class="p">;</span>
+  <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">b</span> <span class="o">&gt;=</span> <span class="mh">0x80</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">((</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="mh">0x1b</span><span class="p">)</span><span class="o">^</span><span class="n">b</span><span class="p">;</span><span class="c1">// a=3则左移后第一位溢出,减去一个不可约多项式,再与自身进行异或运算</span>
+   <span class="k">else</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">)</span><span class="o">^</span><span class="n">b</span><span class="p">;</span><span class="c1">// a=3左移后未溢出,再与自身进行异或运算</span>
+   <span class="k">break</span><span class="p">;</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// 矩阵相乘函数</span>
+<span class="kt">void</span> <span class="nf">Martrix_Multiply</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr1</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span><span class="kt">int</span> <span class="n">arr2</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">],</span><span class="kt">int</span> <span class="n">outputArray</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">{</span>
+ <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span><span class="c1">// 计数变量</span>
+ <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+ <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+   <span class="c1">// 列混合运算</span>
+   <span class="n">outputArray</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">GF_Multiply</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">arr2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="o">^</span><span class="n">GF_Multiply</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">arr2</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="o">^</span><span class="n">GF_Multiply</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span><span class="n">arr2</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+        <span class="o">^</span><span class="n">GF_Multiply</span><span class="p">(</span><span class="n">arr1</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">],</span><span class="n">arr2</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+   <span class="c1">// 对进行移位操作时溢出的数据进行修正操作</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">outputArray</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">256</span><span class="p">)</span>
+    <span class="n">outputArray</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">256</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="c1">// 计数器清零</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">// 遍历矩阵函数</span>
+<span class="kt">void</span> <span class="nf">List_Martrix</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">])</span>
+<span class="p">{</span>
+ <span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">;</span>
+ <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+ <span class="p">{</span>
+  <span class="k">for</span><span class="p">(</span><span class="n">j</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">)</span>
+   <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%0X</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">,</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+ <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>http://blog.sina.com.cn/s/blog_c4b773dd0101mij7.html</p>
 
       </p>
     </div>
