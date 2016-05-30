@@ -26,7 +26,7 @@ categories: Objective-C
 
 * 抓取图片
 
-```JavaScript
+{% highlight javascript %}
 var allImage = document.querySelectorAll("img");
 allImage = Array.prototype.slice.call(allImage, 0);
 var imageUrlsArray = new Array();
@@ -36,8 +36,8 @@ allImage.forEach(function(image) {var esrc =
 		imageUrlsArray.push(esrc.replace(/^(https|http|\/\/)/,'svheader'));
 		}
 	});
-	document.location=imageUrlsArray.toString();
-```
+document.location=imageUrlsArray.toString();
+{% endhighlight %}
 
 实现的思路非常简单，首先通过`img`标签抓取所有的图片并存放在数组中，然后对该数组进行遍历，将图片对应的url添加数组中，然后通过`document.location`方法返回。   
 需要说明的是这里用了一个很巧妙的方式(要感谢[@Kitten](http://kittenyang.com/webview-javascript-bridge/)提供的该思路)，熟悉前端的同学应该知道`document.location`其实是一个网页跳转的方法，比如返回`www.google.com`这个方法，UIWebView即会开始load这个链接，也就是会执行UIWebView的`shouldStartLoadWithRequest`这个代理方法。但是，在load这个request之前，可以看到我们使用一个正则表达式`/^(https|http|\/\/`将http/https协议头替换成了一个自定义的头`svheader`，这样做的目的是为了不让网页自动进行跳转，而拼接在`svheader`头之后的链接数组，即是我们需要的url。   
@@ -46,7 +46,7 @@ allImage.forEach(function(image) {var esrc =
 
 拿到url之后，接下来的事情就很简单了，我们只需要再次遍历url数组，然后为每个`img`元素添加一个lisenter事件，具体如下：
 
-```JavaScript
+{% highlight javascript %}
 var allImage = document.querySelectorAll("img");
 allImage = Array.prototype.slice.call(allImage, 0);
 allImage.forEach(function(image) { 
@@ -56,7 +56,7 @@ allImage.forEach(function(image) {
 		});
 	}
 });
-``` 
+{% endhighlight %}
 
 这里依然用到的是上面的实现思路使用`document.location`重定位一个url，然后根据url拿到协议头后传递过来的消息。
 
