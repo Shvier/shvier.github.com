@@ -24,7 +24,7 @@ categories: Objective-C
 
 针对这个需求，需要先使用一段JavaScript去抓取网页上所有需要添加点击事件的图片，接着根据对应的图片添加正确的点击事件即可。所以第一步首先需要抓取所有图片。
 
-1. 抓取图片
+* 抓取图片
 
 ```JavaScript
 var allImage = document.querySelectorAll("img");
@@ -42,7 +42,7 @@ allImage.forEach(function(image) {var esrc =
 实现的思路非常简单，首先通过`img`标签抓取所有的图片并存放在数组中，然后对该数组进行遍历，将图片对应的url添加数组中，然后通过`document.location`方法返回。   
 需要说明的是这里用了一个很巧妙的方式(要感谢[@Kitten](http://kittenyang.com/webview-javascript-bridge/)提供的该思路)，熟悉前端的同学应该知道`document.location`其实是一个网页跳转的方法，比如返回`www.google.com`这个方法，UIWebView即会开始load这个链接，也就是会执行UIWebView的`shouldStartLoadWithRequest`这个代理方法。但是，在load这个request之前，可以看到我们使用一个正则表达式`/^(https|http|\/\/`将http/https协议头替换成了一个自定义的头`svheader`，这样做的目的是为了不让网页自动进行跳转，而拼接在`svheader`头之后的链接数组，即是我们需要的url。   
 
-2. 添加事件
+* 添加事件
 
 拿到url之后，接下来的事情就很简单了，我们只需要再次遍历url数组，然后为每个`img`元素添加一个lisenter事件，具体如下：
 
